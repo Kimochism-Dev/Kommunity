@@ -45,7 +45,9 @@ export default {
   }
 
   .commentary-left img {
-    width: 100%;
+    border: 3px solid black;
+    width: 90%;
+    margin: 0 auto;
   }
 
   .commentary-right {

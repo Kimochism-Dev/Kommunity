@@ -34,6 +34,7 @@ export default Vue.extend({
   },
   methods: {
     navigateTo (id) {
+      console.log(id)
       this.$router.push('/art/' + id)
     }
   }
@@ -42,13 +43,15 @@ export default Vue.extend({
 
 <style scoped>
   .card-container {
-    max-width: 240px;
+    max-width: 236px;
+    margin: 1%;
+    margin-bottom: 18px;
     position: relative;
     overflow: hidden;
     display: flex;
     border: 5px solid black;
     background-color: white;
-    box-shadow: black 5px 5px;
+    box-shadow: black 6px 6px;
     font-size: 16px;
     text-transform: uppercase;
     cursor: pointer;
