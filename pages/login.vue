@@ -2,7 +2,7 @@
   <div class="container-login">
     <div class="login-inputs">
       <h1 class="main-title-style">
-        Community
+        Kommunity
       </h1>
       <label for="">Email</label>
       <input type="text" placeholder="Login" required>
@@ -22,7 +22,7 @@
       <div class="opacity">
         <span>
           <NuxtLink to="/">
-            Community
+            Kommunity
           </NuxtLink>
         </span>
       </div>

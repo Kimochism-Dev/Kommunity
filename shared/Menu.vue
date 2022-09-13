@@ -2,7 +2,7 @@
   <div class="container-menu">
     <h1 class="main-title-style">
       <NuxtLink to="/">
-        Community
+        Kommunity
       </NuxtLink>
     </h1>
     <div class="user">
