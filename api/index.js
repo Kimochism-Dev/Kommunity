@@ -520,7 +520,7 @@ const galleryItems = [
     }
   },
   {
-    id: 30,
+    id: 31,
     name: 'Wallpaper',
     image: 'https://gifdb.com/images/high/genshin-impact-anemo-kazuha-t0r769pa4w8r3k9t.webp',
     tags: [
@@ -534,7 +534,7 @@ const galleryItems = [
     }
   },
   {
-    id: 31,
+    id: 32,
     name: 'Wallpaper',
     image: 'https://gifdb.com/images/high/genshin-impact-mona-third-skill-zeo0yoh5e4dpsqzn.webp',
     tags: [
@@ -548,7 +548,7 @@ const galleryItems = [
     }
   },
   {
-    id: 32,
+    id: 33,
     name: 'Wallpaper',
     image: 'https://gifdb.com/images/high/genshin-impact-ningguang-kavolvdas2uuq7bc.webp',
     tags: [
@@ -562,7 +562,7 @@ const galleryItems = [
     }
   },
   {
-    id: 33,
+    id: 34,
     name: 'Wallpaper',
     image: 'https://media.giphy.com/media/T3JtiuN4vsNgxQKjre/giphy.gif',
     tags: [
@@ -576,7 +576,7 @@ const galleryItems = [
     }
   },
   {
-    id: 33,
+    id: 35,
     name: 'Wallpaper',
     image: 'https://i.pinimg.com/564x/d5/16/4e/d5164e892a67469b7dc1c501947bca59.jpg',
     tags: [
