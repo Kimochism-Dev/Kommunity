@@ -3,7 +3,6 @@
 *
 {
   font-family: 'Raleway', sans-serif;
-  font-weight: 600;
   outline: none;
 }
 
@@ -27,6 +26,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555 !important;
 }
+
 a{
   color: black;
 }
@@ -35,4 +35,10 @@ html,
 body {
   padding: unset;
   margin: unset;
+}
+
+.main-title-style {
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: black;
 }

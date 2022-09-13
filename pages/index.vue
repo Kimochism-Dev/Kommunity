@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MenuCommunity />
+    <Menu />
     <GalleryContainer />
     <Footer />
   </div>
@@ -8,10 +8,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Menu from '../shared/Menu.vue'
 import Footer from '~/shared/Footer.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
-  components: { Footer }
+  components: { Footer, Menu }
 })
 </script>

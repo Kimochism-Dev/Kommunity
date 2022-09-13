@@ -34,7 +34,6 @@ export default Vue.extend({
   },
   methods: {
     navigateTo (id) {
-      console.log(id)
       this.$router.push('/art/' + id)
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MenuCommunity />
+    <Menu />
     <div class="container">
       <div v-if="item" class="container-art">
         <!-- btn absolute -->
@@ -68,10 +68,11 @@ import Vue from 'vue'
 import galleryItems from '~/api'
 import CommentaryItem from '~/components/CommentaryItem.vue'
 import Footer from '~/shared/Footer.vue'
+import Menu from '~/shared/Menu.vue'
 
 export default Vue.extend({
   name: 'ArtPage',
-  components: { CommentaryItem, Footer },
+  components: { CommentaryItem, Footer, Menu },
   data () {
     return {
       arts: galleryItems,
