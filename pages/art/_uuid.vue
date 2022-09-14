@@ -4,9 +4,11 @@
     <div class="container">
       <div v-if="item" class="container-art">
         <!-- btn absolute -->
-        <a class="btn-primary">
-          <NuxtLink to="/">Voltar</NuxtLink>
-        </a>
+        <NuxtLink to="/">
+          <a class="btn-primary">
+            Voltar
+          </a>
+        </NuxtLink>
         <!-- image contrast -->
         <div class="art-left">
           <img :src="item && item.image ? item.image : ''" alt="" width="500">
@@ -90,7 +92,7 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .line-break {
   width: 100%;
   border: 1px solid #f6f6f6;
@@ -126,13 +128,12 @@ a {
   justify-content: center;
   align-items: center;
   display: flex;
-}
-
-.art-left img {
-  width: auto;
-  max-width: 100%;
-  max-height: 90%;
-  left: auto;
+  img {
+    width: auto;
+    max-width: 100%;
+    max-height: 90%;
+    left: auto;
+  }
 }
 
 .art-right {
@@ -149,14 +150,13 @@ a {
   padding-top: 15px;
   flex-wrap: wrap;
   display: flex;
-}
-
-.art-tags span {
-  color: white;
-  background-color: black;
-  padding: 5px 10px;
-  margin: 1%;
-  cursor: pointer;
+  span {
+    color: white;
+    background-color: black;
+    padding: 5px 10px;
+    margin: 1%;
+    cursor: pointer;
+  }
 }
 
 .icon-author {
@@ -168,35 +168,32 @@ a {
   align-items: center;
   display: flex;
   overflow: hidden;
-}
-
-.icon-author img {
-  height: 100%;
+  img {
+    height: 100%;
+  }
 }
 
 .art-info {
   flex-direction: column;
   display: flex;
-}
-
-.art-info h1 {
-  text-align: left;
-  padding: 34px 0;
-  margin: 0;
+  h1 {
+    text-align: left;
+    padding: 34px 0;
+    margin: 0;
+  }
 }
 
 .art-options {
   justify-content: space-between;
   padding: 8px 0;
   display: flex;
-}
-
-.art-options button {
-  width: 38px;
-  height: 38px;
-  border: 5px solid black;
-  background-color: white;
-  cursor: pointer;
+  button {
+    width: 38px;
+    height: 38px;
+    border: 5px solid black;
+    background-color: white;
+    cursor: pointer;
+  }
 }
 
 .author-info {

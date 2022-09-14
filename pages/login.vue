@@ -41,7 +41,7 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container-login {
   position: relative;
   width: 100vw;
@@ -54,6 +54,8 @@ export default Vue.extend({
   height: 100%;
   overflow: hidden;
   background-image: url("https://my4kwallpapers.com/wp-content/uploads/2021/06/Anime-Wallpaper.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .opacity {
@@ -62,17 +64,15 @@ export default Vue.extend({
   background-color: #0000007b;
   flex-direction: column;
   display: flex;
-}
-
-.opacity span {
-  padding: 24px;
-  font-weight: 600;
-  color: #ecebeb7b;
-  letter-spacing: 1px;
-}
-
-.opacity span a {
-  color: #ecebeb7b;
+  span {
+    padding: 24px;
+    font-weight: 600;
+    color: #ecebeb7b;
+    letter-spacing: 1px;
+    a {
+      color: #ecebeb7b;
+    }
+  }
 }
 
 .login-inputs {
@@ -86,31 +86,27 @@ export default Vue.extend({
   box-shadow: black 15px 15px;
   flex-direction: column;
   display: flex;
-}
-
-.login-inputs input {
-  padding: 12px;
-  border: 2px solid black;
-}
-
-.login-inputs label {
-  font-weight: 600;
-  padding: 12px 0;
-}
-
-.login-inputs button {
-  width: 100%;
-  border: 5px solid black;
-  background-color: white;
-  box-shadow: black 8px 8px;
-  font-weight: 600;
-  padding: 12px;
-  margin: 8% 0%;
-  cursor: pointer;
-}
-
-.login-inputs span {
-  padding: 24px;
-  text-align: center;
+  input {
+    padding: 12px;
+    border: 2px solid black;
+  }
+  label {
+    font-weight: 600;
+    padding: 12px 0;
+  }
+  button {
+    width: 100%;
+    border: 5px solid black;
+    background-color: white;
+    box-shadow: black 8px 8px;
+    font-weight: 600;
+    padding: 12px;
+    margin: 8% 0%;
+    cursor: pointer;
+  }
+  span {
+    padding: 24px;
+    text-align: center;
+  }
 }
 </style>

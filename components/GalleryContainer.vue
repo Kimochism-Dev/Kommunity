@@ -21,7 +21,7 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container-gallery {
   margin: 0 auto;
   margin-top: 0;

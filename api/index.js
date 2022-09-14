@@ -410,7 +410,7 @@ const galleryItems = [
   {
     id: 23,
     name: 'Wallpaper',
-    image: 'https://cdn.discordapp.com/attachments/512809986699690004/1002222367805800539/wallpaperhentaihd.jpg',
+    image: 'https://i.pinimg.com/564x/e4/ce/7d/e4ce7db18eec974c5fbfec2bbd62b9da.jpg',
     tags: [
       'cellphone',
       'wallpaper'
