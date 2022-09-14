@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <Menu />
     <div class="send-back">
       <NuxtLink to="/">
@@ -77,6 +77,12 @@ export default Vue.extend({
       font-weight: 600;
     }
   }
+}
+
+.container{
+  overflow-x: hidden;
+  flex-direction: column;
+  display: flex;
 }
 
 .sub-container{
@@ -211,4 +217,19 @@ export default Vue.extend({
   }
 }
 
+/* media screen */
+
+@media screen and (max-width: 925px) {
+  .post-container{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .post-right{
+    max-width: 70%;
+  }
+  .post-left{
+    max-width: 75%;
+  }
+}
 </style>
