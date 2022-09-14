@@ -46,7 +46,7 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .container-footer{
     background-color: black;
     color: white;
@@ -63,19 +63,16 @@ export default Vue.extend({
     line-height: 25px;
     flex-direction: column;
     display: flex;
-  }
-
-  .box h3 {
-    padding: 20px 8px;
-    font-size: 20px;
-    margin: 0px;
-  }
-
-  .box span {
-    padding: 8px;
-  }
-
-  .box span a {
-    color: white;
+    h3 {
+      padding: 20px 8px;
+      font-size: 20px;
+      margin: 0px;
+    }
+    span {
+      padding: 8px;
+      a {
+        color: white;
+      }
+    }
   }
 </style>

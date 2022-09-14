@@ -7,7 +7,12 @@
     </h1>
     <div class="user">
       <div v-if="user" class="user-info">
-        <span>Username</span>
+        <NuxtLink to="/post">
+          <button>Create</button>
+        </NuxtLink>
+        <NuxtLink to="/">
+          <span>Username</span>
+        </NuxtLink>
       </div>
       <div v-else class="login">
         <NuxtLink to="/login">
@@ -27,22 +32,23 @@ export default Vue.extend({
   name: 'FooterComponent',
   data () {
     return {
-      user: false
+      user: true
     }
   }
 })
 </script>
 
-<style>
+<style lang="scss" scoped>
+  a {
+    text-decoration: none;
+  }
+
   .container-menu {
     width: 95vw;
     margin: 0 auto;
     justify-content: space-between;
+    align-items: center;
     display: flex;
-  }
-
-  a {
-    text-decoration: none;
   }
 
   .user{
@@ -50,16 +56,35 @@ export default Vue.extend({
     align-items: center;
     flex-direction: column;
     display: flex;
+    button {
+      color: black;
+      background-color: white;
+      border: 5px solid black;
+      box-shadow: black 5px 5px;
+      font-weight: bold;
+      padding: 8px 24px;
+      cursor: pointer;
+    }
   }
 
-  .user button {
-    color: black;
-    background-color: white;
-    border: 5px solid black;
-    box-shadow: black 5px 5px;
-    font-weight: bold;
-    padding: 8px 24px;
-    cursor: pointer;
+  .user-info{
+    width: auto;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+    padding: 8px;
+    padding-right: 0;
+    a {
+      margin: 5%;
+      button{
+        margin: 0 5%;
+        margin-right: 0;
+      }
+      span{
+        padding: 12px;
+      }
+    }
   }
 
 </style>

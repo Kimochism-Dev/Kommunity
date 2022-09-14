@@ -71,6 +71,7 @@ export default Vue.extend({
     letter-spacing: 1px;
     a {
       color: #ecebeb7b;
+      text-decoration: none;
     }
   }
 }
