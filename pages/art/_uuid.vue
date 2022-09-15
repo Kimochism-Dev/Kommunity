@@ -30,8 +30,11 @@
               </div>
             </div>
             <h1 class="art-title">
-              {{ item?.name }}
+              {{ item?.title }}
             </h1>
+            <p>
+              {{ item?.description }}
+            </p>
             <hr class="line-break">
             <div class="author-info">
               <div class="column-left">
