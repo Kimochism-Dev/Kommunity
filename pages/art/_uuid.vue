@@ -1,7 +1,10 @@
 <template>
   <div>
     <Menu />
-    <div class="container">
+    <div v-if="loadingScreen">
+      <Preloader />
+    </div>
+    <div v-else class="container">
       <div v-if="item" class="container-art">
         <!-- btn absolute -->
         <NuxtLink to="/">
@@ -67,26 +70,33 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import galleryItems from '~/api'
 import CommentaryItem from '~/components/CommentaryItem.vue'
 import Footer from '~/shared/Footer.vue'
 import Menu from '~/shared/Menu.vue'
+import Preloader from '~/shared/Preloader.vue'
 
 export default Vue.extend({
   name: 'ArtPage',
-  components: { CommentaryItem, Footer, Menu },
+  components: { CommentaryItem, Footer, Menu, Preloader },
   data () {
     return {
-      arts: galleryItems,
-      item: {}
+      item: {},
+      loadingScreen: true
     }
   },
   beforeMount () {
-    for (const art of this.arts) {
-      if (art.id === parseInt(this.$route.params.uuid)) {
-        this.item = art
-        return
-      }
+    this.getArt()
+  },
+  methods: {
+    getArt () {
+      this.$axios.get(`/posts/${this.$route.params.uuid}`)
+        .then((response) => {
+          this.item = response.data
+        }).catch((error) => {
+          console.log(error)
+        }).finally(() => {
+          this.loadingScreen = false
+        })
     }
   }
 })

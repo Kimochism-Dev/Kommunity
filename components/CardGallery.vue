@@ -3,7 +3,7 @@
     class="card-container"
   >
     <img :src="item.image">
-    <div class="card-opacity" @click="navigateTo(item.id)">
+    <div class="card-opacity" @click="navigateTo(item._id)">
       <div class="top">
         <button class="btn-primary">
           Salvar

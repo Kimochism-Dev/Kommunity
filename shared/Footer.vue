@@ -72,6 +72,7 @@ export default Vue.extend({
       padding: 8px;
       a {
         color: white;
+        text-decoration: none;
       }
     }
   }

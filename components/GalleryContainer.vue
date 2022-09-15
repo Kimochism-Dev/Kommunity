@@ -1,22 +1,54 @@
 <template>
-  <div class="container-gallery">
-    <CardGallery v-for="(item, i) in gallery" :key="i" :item="item" />
+  <div>
+    <div v-if="loadingScreen" class="loader">
+      <Preloader />
+    </div>
+    <div v-else class="container-gallery">
+      <CardGallery v-for="(item, i) in gallery" :key="i" :item="item" />
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import galleryItems from '~/api'
+import Preloader from '../shared/Preloader.vue'
 
 export default Vue.extend({
   name: 'GalleryContainer',
+  components: { Preloader },
   data () {
     return {
-      gallery: []
+      gallery: [],
+      loadingScreen: true
     }
   },
   beforeMount () {
-    this.gallery = galleryItems
+    this.getArts()
+  },
+  methods: {
+    getArts () {
+      this.$axios.get('/posts')
+        .then((response) => {
+          this.gallery = this.shuffle(response.data)
+        }).catch((error) => {
+          console.log(`Erro: ${error}`)
+        }).finally(() => {
+          this.loadingScreen = false
+        })
+    },
+    shuffle (array) {
+      let currentIndex = array.length
+      let randomIndex
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex],
+          array[currentIndex]
+        ]
+      }
+      return array
+    }
   }
 })
 </script>
@@ -28,5 +60,11 @@ export default Vue.extend({
   padding: 0;
   max-width: 95vw;
   column-count: 7;
+}
+
+.loader{
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
 }
 </style>

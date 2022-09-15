@@ -13,6 +13,11 @@ import Footer from '~/shared/Footer.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
-  components: { Footer, Menu }
+  components: { Footer, Menu },
+  data () {
+    return {
+      name: 'index'
+    }
+  }
 })
 </script>
