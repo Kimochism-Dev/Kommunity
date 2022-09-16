@@ -201,7 +201,6 @@ export default Vue.extend({
   height: 70px;
   margin: 20px;
   border: 3px solid black;
-  background-color: purple;
   background-image: url('https://64.media.tumblr.com/d2251ec9326a12361e7e0864c6fabeaa/90b56d91692950f2-4e/s400x600/c815539d3f3d98fb7167bee890176fea8cea8015.pnj');
   background-size: cover;
 }
