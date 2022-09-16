@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="loadingScreen" class="loader">
+    <div v-show="loadingScreen" class="loader">
       <Preloader />
     </div>
-    <div v-else class="container-gallery">
+    <div v-if="!loadingScreen" class="container-gallery">
       <CardGallery v-for="(item, i) in gallery" :key="i" :item="item" />
     </div>
   </div>
@@ -58,6 +58,7 @@ export default Vue.extend({
   margin: 0 auto;
   margin-top: 0;
   padding: 0;
+  padding-bottom: 50px;
   max-width: 95vw;
   column-count: 7;
 }

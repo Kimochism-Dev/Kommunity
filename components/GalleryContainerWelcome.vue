@@ -5,7 +5,6 @@
     </div>
     <div v-else class="container-gallery">
       <CardGallery v-for="(item, i) in gallery" :key="i" :item="item" />
-      <div class="opacity-welcome" />
     </div>
   </div>
 </template>
@@ -64,7 +63,8 @@ export default Vue.extend({
   margin: 0 auto;
   margin-top: 0;
   padding: 0 50px;
-  padding-bottom: 50px;
+  padding-bottom: 150px;
+  background-image: linear-gradient(to top, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 50%, rgba(255,255,255,0) 100%);
   column-count: 7;
 }
 
@@ -78,7 +78,6 @@ export default Vue.extend({
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to top, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 25%, rgba(255,255,255,0) 100%);
   left: 0;
   bottom: 0;
 }

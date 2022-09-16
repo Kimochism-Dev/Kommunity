@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="card-container"
-  >
+  <div class="card-container" data-aos="fade-up" data-offset="500">
     <img :src="item.image">
     <div class="card-opacity" @click="navigateTo(item._id)">
       <div class="top">

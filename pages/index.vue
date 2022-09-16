@@ -1,12 +1,12 @@
 <template>
   <div>
     <Menu />
-    <div class="welcome">
+    <div class="welcome" data-aos="fade-up">
       <h1>Bem vindo ao Kommunity</h1>
       <h2>Encontre aqui ideias de arte feitas pra você</h2>
       <SearchButtons />
     </div>
-    <GalleryContainerWelcome />
+    <GalleryContainerWelcome data-aos="fade-up" />
     <Footer />
   </div>
 </template>
@@ -29,7 +29,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
   .welcome{
-    padding: 150px;
+    padding: 180px;
     text-align: center;
     flex-direction: column;
     display: flex;
