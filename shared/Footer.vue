@@ -50,7 +50,6 @@ export default Vue.extend({
   .container-footer{
     background-color: black;
     color: white;
-    margin-top: 50px;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 40px 80px;

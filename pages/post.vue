@@ -87,6 +87,7 @@ export default Vue.extend({
 
 .sub-container{
   padding: 0px 40px;
+  padding-bottom: 40px;
   justify-content: center;
   display: flex;
 }
