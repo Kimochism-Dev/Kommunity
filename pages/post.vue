@@ -10,20 +10,32 @@
       <div class="post-container">
         <div class="post-left">
           <div class="box-upload">
-            <input id="file-upload" type="file" class="file-upload" name="file-upload">
-            <div class="icon-upload">
-              <img src="https://cdn.discordapp.com/attachments/512809986699690004/1019676357246070895/arrow-simple-black-top.png">
+            <input
+              id="file-upload"
+              ref="file_upload"
+              type="file"
+              class="file-upload"
+              name="file-upload"
+              @change="changeFile"
+            >
+            <div v-if="!file" class="post-texts">
+              <div class="icon-upload">
+                <img src="https://cdn.discordapp.com/attachments/512809986699690004/1019676357246070895/arrow-simple-black-top.png">
+              </div>
+              <span>
+                Arraste e solte ou clique para carregar imagens ou Gifs
+              </span>
+              <span>
+                Recomendação: use arquivos .jpg de alta qualidade com menos de 20 MB ou arquivos .mp4 com menos de 2 GB
+              </span>
             </div>
-            <span>
-              Arraste e solte ou clique para carregar imagens ou Gifs
-            </span>
-            <span>
-              Recomendação: use arquivos .jpg de alta qualidade com menos de 20 MB ou arquivos .mp4 com menos de 2 GB
-            </span>
+            <div v-else>
+              <img :src="file">
+            </div>
           </div>
         </div>
         <div class="post-right">
-          <h2 for="">
+          <h2>
             Crie seu post aqui ✨
           </h2>
           <input type="text" placeholder="Titulo">
@@ -36,6 +48,40 @@
           </div>
           <input id="" type="text" name="" placeholder="Escreva um pouco sobre o seu post">
           <input type="text" placeholder="Tags">
+          <div class="form-date">
+            <div>
+              <input
+                id="now"
+                type="radio"
+                name="pub_date"
+                value="false"
+                checked="checked"
+                @change="changeDatePost"
+              >
+              <label for="now">Publicar imediatamente</label>
+            </div>
+            <div>
+              <input
+                id="later"
+                type="radio"
+                name="pub_date"
+                value="true"
+                @change="changeDatePost"
+              >
+              <label for="later">Publicar em outra data</label>
+            </div>
+          </div>
+          <div v-if="postNow === 'later'" class="other-date-container">
+            <label>
+              📅 <b>Quando quer que o post seja publicado?</b>
+            </label>
+            <select>
+              <option>Manhã - 10:00 </option>
+              <option>Tarde - 16:00</option>
+              <option>Noite - 22:00</option>
+            </select>
+            <input id="" type="date" name="">
+          </div>
           <button>Postar</button>
         </div>
       </div>
@@ -54,7 +100,17 @@ export default Vue.extend({
   components: { Menu, Footer },
   data () {
     return {
-      name: 'Novo post =)'
+      date_post: '',
+      file: '',
+      postNow: ''
+    }
+  },
+  methods: {
+    changeFile (e: any) {
+      this.file = URL.createObjectURL(e.target.files[0])
+    },
+    changeDatePost (e: any) {
+      this.postNow = e.target.id
     }
   }
 })
@@ -96,6 +152,7 @@ export default Vue.extend({
   background-color: #eaeaea;
   width: 100%;
   height: 90%;
+  align-items: start;
   justify-content: center;
   display: flex;
 }
@@ -119,6 +176,7 @@ export default Vue.extend({
 .box-upload{
   position: relative;
   height: 100%;
+  max-height: 585px;
   padding: 60px;
   text-align: center;
   justify-content: center;
@@ -126,13 +184,24 @@ export default Vue.extend({
   flex-direction: column;
   display: flex;
   overflow: hidden;
-  span{
+  span {
     padding: 20px 0px;
     font-weight: 600;
     opacity: 0.6;
   }
+  img {
+    width: 100%;
+    z-index: 0;
+  }
 }
 
+.post-texts {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+}
 .icon-upload{
   width: 18px;
   height: 18px;
@@ -187,6 +256,9 @@ export default Vue.extend({
     bottom: 0px;
     cursor: pointer;
   }
+  h2 {
+    margin: 0px
+  }
 }
 
 .post-user{
@@ -214,6 +286,41 @@ export default Vue.extend({
     &:nth-child(1){
       font-weight: 700;
     }
+  }
+}
+
+.form-date{
+  justify-content: space-between;
+  padding: 12px;
+  padding-top: 18px;
+  display: flex;
+  input{
+    cursor: pointer
+  }
+  label{
+    cursor: pointer;
+  }
+}
+
+.other-date-container {
+  background-color: #eaeaea;
+  padding: 12px;
+  margin-top: 15px;
+  flex-direction: column;
+  display: flex;
+  input {
+    margin: 0px;
+    padding-left: 4px;
+    background-color: transparent;
+  }
+  select {
+    margin: 1% 0px;
+    padding: 8px 0px;
+    padding-top: 15px;
+    margin-right: 17px;
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
   }
 }
 
