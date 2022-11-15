@@ -10,7 +10,7 @@
         <NuxtLink to="/post">
           <button>Create</button>
         </NuxtLink>
-        <NuxtLink to="/">
+        <NuxtLink to="/profile">
           <span>Username</span>
         </NuxtLink>
       </div>
