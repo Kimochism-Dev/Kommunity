@@ -42,7 +42,7 @@
           <div class="post-user">
             <div class="user-icon" />
             <div class="user-info">
-              <span>Username</span>
+              <span>Usuário</span>
               <span>320 seguidores</span>
             </div>
           </div>
@@ -273,7 +273,7 @@ export default Vue.extend({
   height: 70px;
   margin: 20px;
   border: 3px solid black;
-  background-image: url('https://64.media.tumblr.com/d2251ec9326a12361e7e0864c6fabeaa/90b56d91692950f2-4e/s400x600/c815539d3f3d98fb7167bee890176fea8cea8015.pnj');
+  background-image: url('https://i.pinimg.com/564x/2a/1d/ba/2a1dba3b065dce9c06ea16e19d8621cc.jpg');
   background-size: cover;
 }
 

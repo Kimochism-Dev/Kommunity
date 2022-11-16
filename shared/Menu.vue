@@ -11,7 +11,7 @@
           <button>Create</button>
         </NuxtLink>
         <NuxtLink to="/profile">
-          <span>Username</span>
+          <span>Usuário</span>
         </NuxtLink>
       </div>
       <div v-else class="login">

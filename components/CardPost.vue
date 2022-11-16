@@ -1,13 +1,12 @@
 <template>
   <div class="container-card-post" :style="{backgroundImage: 'url('+ post.image +')'}">
     <div class="card-post-options">
-      <button>
-        <img src="https://cdn-icons-png.flaticon.com/512/61/61456.png" alt="">
-      </button>
+      <CardPostDialog :post="post" />
+      <CardPostDialogDelete :post="post" />
     </div>
     <div class="card-post-title">
       <span>
-        {{ post.name }}
+        {{ post.title }}
       </span>
     </div>
   </div>
@@ -15,9 +14,11 @@
 
 <script>
 import Vue from 'vue'
+import CardPostDialog from './CardPostDialog.vue'
 
 export default Vue.extend({
   name: 'CardPost',
+  components: { CardPostDialog },
   props: {
     post: {
       type: Object,
@@ -39,35 +40,11 @@ export default Vue.extend({
     border: 5px solid black;
     box-shadow: black 6px 6px;
     margin: 1%;
-    width: 280px;
+    width: 250px;
     height: 380px;
     position: relative;
     flex-direction: column-reverse;
     display: flex;
-  }
-  .card-post-options {
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    border: 2px solid black;
-    box-shadow: black 4px 4px;
-    position: absolute;
-    top: 6px;
-    right: 12px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    button {
-      width: 100%;
-      height: 100%;
-      padding: 8px;
-      margin: 0px;
-      background-color: transparent;
-      cursor: pointer;
-      img {
-        width: 100%;
-      }
-    }
   }
 
   .card-post-title {
@@ -88,5 +65,13 @@ export default Vue.extend({
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+
+  .card-post-options{
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    flex-direction: column;
+    display: flex;
   }
 </style>
