@@ -5,14 +5,17 @@
         Kommunity
       </h1>
       <label for="">Email</label>
-      <input type="text" placeholder="Login" required>
+      <input
+        v-model="email"
+        type="text"
+        placeholder="example@community.com"
+        required
+      >
       <label for="">Senha</label>
-      <input id="" type="password" name="" placeholder="Senha" required>
-      <NuxtLink to="/">
-        <button>
-          Entrar
-        </button>
-      </NuxtLink>
+      <input v-model="password" type="password" placeholder="Senha" required>
+      <button @click="handleLogin">
+        Entrar
+      </button>
       <span>
         Ainda não possui conta?
         <b>Cadastre-se</b>
@@ -21,9 +24,7 @@
     <div class="background">
       <div class="opacity">
         <span>
-          <NuxtLink to="/">
-            Kommunity
-          </NuxtLink>
+          <NuxtLink to="/"> Kommunity </NuxtLink>
         </span>
       </div>
     </div>
@@ -36,7 +37,30 @@ import Vue from 'vue'
 export default Vue.extend({
   name: 'LoginComponent',
   data () {
-    return {}
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    async handleLogin () {
+      if (this.password.length < 6) {
+        alert('Senha precisa ter 6 ou mais caracteres')
+        return
+      }
+
+      const response = await this.$axios.post('/users/signin', {
+        email: this.email,
+        password: this.password
+      })
+
+      if (response.data) {
+        const { idToken } = response.data
+        localStorage.setItem('idToken', idToken)
+
+        this.$router.push('/')
+      }
+    }
   }
 })
 </script>
