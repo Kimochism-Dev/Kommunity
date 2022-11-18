@@ -23,7 +23,7 @@
                 <img src="https://cdn.discordapp.com/attachments/512809986699690004/1019676357246070895/arrow-simple-black-top.png">
               </div>
               <span>
-                Arraste e solte ou clique para carregar imagens ou Gifs
+                Clique para carregar imagens ou Gifs
               </span>
               <span>
                 Recomendação: use arquivos .jpg de alta qualidade com menos de 20 MB ou arquivos .mp4 com menos de 2 GB
@@ -40,10 +40,17 @@
           </h2>
           <input type="text" placeholder="Titulo">
           <div class="post-user">
-            <div class="user-icon" />
+            <div
+              class="user-icon"
+              :style="{ backgroundImage: 'url('+ user.picture +')' }"
+            />
             <div class="user-info">
-              <span>Usuário</span>
-              <span>320 seguidores</span>
+              <span>
+                {{ user.name }}
+              </span>
+              <span>
+                {{ user.followers > 0 ? user.followers + ' Seguidores' : 'Você ainda não tem seguidores' }}
+              </span>
             </div>
           </div>
           <input id="" type="text" name="" placeholder="Escreva um pouco sobre o seu post">
@@ -90,7 +97,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import Menu from '~/shared/Menu.vue'
 import Footer from '~/shared/Footer.vue'
@@ -102,14 +109,18 @@ export default Vue.extend({
     return {
       date_post: '',
       file: '',
-      postNow: ''
+      postNow: '',
+      user: ''
     }
   },
+  beforeMount () {
+    this.user = JSON.parse(localStorage.getItem('user'))
+  },
   methods: {
-    changeFile (e: any) {
+    changeFile (e) {
       this.file = URL.createObjectURL(e.target.files[0])
     },
-    changeDatePost (e: any) {
+    changeDatePost (e) {
       this.postNow = e.target.id
     }
   }

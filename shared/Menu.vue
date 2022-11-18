@@ -11,8 +11,15 @@
           <button>Create</button>
         </NuxtLink>
         <NuxtLink to="/profile">
-          <span>Usuário</span>
+          <span>
+            <b>
+              {{ user.name }}
+            </b>
+          </span>
         </NuxtLink>
+        <button @click="logout()">
+          Sair
+        </button>
       </div>
       <div v-else class="login">
         <NuxtLink to="/login">
@@ -32,7 +39,17 @@ export default Vue.extend({
   name: 'FooterComponent',
   data () {
     return {
-      user: true
+      user: ''
+    }
+  },
+  beforeMount () {
+    this.user = JSON.parse(localStorage.getItem('user'))
+  },
+  methods: {
+    logout () {
+      localStorage.removeItem('idToken')
+      localStorage.removeItem('user')
+      this.$router.push('/login')
     }
   }
 })

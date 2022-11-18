@@ -57,7 +57,7 @@ export default Vue.extend({
       if (response.data) {
         const { idToken } = response.data
         localStorage.setItem('idToken', idToken)
-
+        localStorage.setItem('user', JSON.stringify(response.data.user))
         this.$router.push('/')
       }
     }

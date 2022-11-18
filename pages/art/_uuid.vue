@@ -21,9 +21,9 @@
           <div class="art-info">
             <div class="art-options">
               <div class="left-options">
-                <button>O</button>
-                <button>P</button>
-                <button>T</button>
+                <button>
+                  o
+                </button>
               </div>
               <div class="right-options">
                 <button>💖</button>

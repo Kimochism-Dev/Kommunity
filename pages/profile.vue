@@ -3,17 +3,20 @@
     <Menu />
     <Preloader v-if="loadingScreen" />
     <div v-else class="container-profile">
-      <div class="front-profile">
+      <div class="front-profile" :style="{ backgroundImage: 'url('+ user.banner +')' }">
         <div class="edit-profile">
           <button>
             <img src="https://cdn-icons-png.flaticon.com/512/61/61456.png" alt="">
           </button>
         </div>
         <div class="icon-container-profile">
-          <div class="icon-profile" />
-          <h2>Usuário</h2>
+          <div class="icon-profile" :style="{ backgroundImage: 'url('+ user.picture +')' }" />
+          <h2>{{ user.name }}</h2>
           <div>
-            <b>320 Seguidores • 15 seguindo</b>
+            <b>
+              {{ user.followers > 0 ? user.followers : '0' }} Seguidores
+              •
+              {{ user.following > 0 ? user.followers : '0' }} Seguindo</b>
           </div>
         </div>
       </div>
@@ -32,7 +35,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import Menu from '~/shared/Menu.vue'
 import Footer from '~/shared/Footer.vue'
@@ -112,14 +115,16 @@ export default Vue.extend({
           image: 'https://i.pinimg.com/564x/f1/ce/c9/f1cec91ff4e1122325e6ea188a39f93d.jpg'
         }
       ],
-      loadingScreen: true
+      loadingScreen: true,
+      user: ''
     }
   },
   beforeMount () {
-    // simular api
+    this.user = JSON.parse(localStorage.getItem('user'))
+    // simular loading
     setTimeout(() => {
       this.loadingScreen = false
-    }, 2000)
+    }, 1000)
   }
 })
 </script>
@@ -175,7 +180,6 @@ export default Vue.extend({
 .icon-profile {
   width: 168px;
   height: 168px;
-  background-image: url("https://i.pinimg.com/564x/2a/1d/ba/2a1dba3b065dce9c06ea16e19d8621cc.jpg");
   background-size: cover;
   border: 5px solid black;
   border-radius: 100%;
