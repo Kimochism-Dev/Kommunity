@@ -23,7 +23,8 @@ export default {
     {
       src: '@plugins/aos',
       mode: 'client'
-    }
+    },
+    '@plugins/axios'
   ],
 
   // purgeCSS
