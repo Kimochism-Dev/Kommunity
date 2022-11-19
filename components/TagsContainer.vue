@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <div class="container-tags">
-      <button v-for="tag in tags" :key="tag" class="tag" @click="selectTag(tag)">
+      <button
+        v-for="(tag, index) in tags"
+        :key="tag"
+        class="tag"
+        :class="currentSelected === index && ' selected'"
+        @click="selectTag(tag, index)"
+      >
         <img src="/price-tag.png">
         {{ tag }}
       </button>
@@ -17,7 +23,7 @@ export default Vue.extend({
   data () {
     return {
       tags: [],
-      selectedTags: [] as string[]
+      currentSelected: -1
     }
   },
   beforeMount () {
@@ -29,12 +35,28 @@ export default Vue.extend({
 
       if (response.data) {
         this.tags = response.data
+
+        const queryTags = this.$route.query.tags as string
+
+        if (queryTags) {
+          const currentIndex = response.data.findIndex(
+            (tag: string) => tag === queryTags
+          )
+          this.selectTag(queryTags as string, currentIndex)
+        }
       }
     },
-    async selectTag (tag: string) {
-      this.$router.push('/feed?tags=' + tag)
+    async selectTag (tag: string, index: number) {
+      let url = '/posts'
 
-      const url = this.tags ? `/posts?tags=${this.tags}` : '/posts'
+      if (this.currentSelected === index) {
+        this.currentSelected = -1
+        this.$router.push('/feed')
+      } else {
+        this.currentSelected = index
+        this.$router.push('/feed?tags=' + tag)
+        url += `?tags=${tag}`
+      }
 
       const response = await this.$axios.get(url)
 
@@ -44,7 +66,6 @@ export default Vue.extend({
     }
   }
 })
-
 </script>
 
 <style lang="scss" scoped>
@@ -76,7 +97,7 @@ export default Vue.extend({
       width: 16px;
       margin-right: 4px;
       transition: 0.3s all ease;
-      filter: invert(1)
+      filter: invert(1);
     }
 
     &:hover {
@@ -84,8 +105,17 @@ export default Vue.extend({
       color: white;
 
       img {
-        filter: invert(0)
+        filter: invert(0);
       }
+    }
+  }
+
+  .selected {
+    background: black;
+    color: white;
+
+    img {
+      filter: invert(0);
     }
   }
 }
