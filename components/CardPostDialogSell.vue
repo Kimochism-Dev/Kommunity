@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="card-post-options" @click="actionDialog(post.isPurchasable)">
-      <button 
+      <button
         :class="post.isPurchasable? 'purchasable' : 'not-purchasable'"
         :disabled="post.isPurchasable? '' : 'disabled'"
-        >
+      >
         <img src="https://cdn-icons-png.flaticon.com/512/1194/1194711.png">
       </button>
     </div>
@@ -67,10 +67,10 @@ export default Vue.extend({
   },
   methods: {
     actionDialog (purchasable) {
-      if(purchasable){
+      if (purchasable) {
         this.dialog = !this.dialog
       }
-    },
+    }
   }
 })
 </script>

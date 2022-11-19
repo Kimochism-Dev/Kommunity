@@ -5,6 +5,7 @@
       <NuxtLink to="/">
         <span>Voltar</span>
       </NuxtLink>
+      <CreatedDialog :resp-post="respPost" />
     </div>
     <div class="sub-container">
       <div class="post-container">
@@ -34,11 +35,18 @@
             </div>
           </div>
         </div>
-        <div class="post-right">
+        <form ref="post_form" class="post-right" enctype="multipart/form-data" method="post">
           <h2>
             Crie seu post aqui ✨
           </h2>
-          <input type="text" placeholder="Titulo">
+          <input
+            v-model="post.title"
+            type="text"
+            placeholder="Titulo"
+            required
+            oninvalid="this.setCustomValidity('Witinnovation')"
+            onvalid="this.setCustomValidity('')"
+          >
           <div class="post-user">
             <div
               class="user-icon"
@@ -53,8 +61,15 @@
               </span>
             </div>
           </div>
-          <input id="" type="text" name="" placeholder="Escreva um pouco sobre o seu post">
-          <input type="text" placeholder="Tags">
+          <input
+            id=""
+            v-model="post.description"
+            type="text"
+            name=""
+            placeholder="Escreva um pouco sobre o seu post"
+            required
+          >
+          <input v-model="post.tags" type="text" placeholder="TagExample, TagExample2, TagExample3" required>
           <div class="form-date">
             <div>
               <input
@@ -89,8 +104,13 @@
             </select>
             <input id="" type="date" name="">
           </div>
-          <button>Postar</button>
-        </div>
+          <input
+            class="send-form"
+            type="button"
+            value="Postar"
+            @click="createPost()"
+          >
+        </form>
       </div>
     </div>
     <Footer />
@@ -101,20 +121,23 @@
 import Vue from 'vue'
 import Menu from '~/shared/Menu.vue'
 import Footer from '~/shared/Footer.vue'
+import CreatedDialog from '~/components/CreatedDialog.vue'
 
 export default Vue.extend({
   name: 'NewPost',
-  components: { Menu, Footer },
+  components: { Menu, Footer, CreatedDialog },
   data () {
     return {
       date_post: '',
       file: '',
+      fileToSend: '',
       postNow: '',
+      respPost: {},
       post: {
         title: '',
         description: '',
         tags: [],
-        email: this.user.email,
+        email: '',
         isPublic: true
       },
       user: ''
@@ -122,25 +145,31 @@ export default Vue.extend({
   },
   beforeMount () {
     this.user = JSON.parse(localStorage.getItem('user'))
+    this.post.email = this.user.email
   },
   methods: {
     changeFile (e) {
       this.file = URL.createObjectURL(e.target.files[0])
+      this.fileToSend = e.target.files[0]
     },
     changeDatePost (e) {
       this.postNow = e.target.id
     },
-    async createPost(){
-      const formData = new FormData();
-      formData.append("image", this.file);
+    async createPost () {
+      const formData = new FormData(this.$refs.post_form)
+      formData.append('image', this.fileToSend)
       const post = await this.$axios.post('/posts', this.post)
-      
-      await this.$axios.post(`/posts/${post._id}/image`, {
-        formData
-      }, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      await this.$axios({
+        method: 'post',
+        url: `/posts/${post.data._id}/image`,
+        data: formData,
+        config: {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         }
+      }).finally(() => {
+        this.respPost = post.data
       })
     }
   }
@@ -276,7 +305,7 @@ export default Vue.extend({
     border: 0px;
     border-bottom: 2px solid #cfcfcf;
   }
-  button{
+  .send-form{
     color: black;
     background-color: white;
     border: 5px solid black;
@@ -353,6 +382,11 @@ export default Vue.extend({
     border: 0px;
     cursor: pointer;
   }
+}
+
+.disabled-button {
+  background-color: grey;
+  cursor: not-allowed !important;
 }
 
 /* media screen */

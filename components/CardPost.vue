@@ -5,8 +5,7 @@
       <CardPostDialogDelete :post="post" />
       <CardPostDialogSell :post="post" />
     </div>
-    <div class="card-post-image" :style="{backgroundImage: 'url('+ post.image +')'}" @click="sendToPost(post._id)">
-    </div>
+    <div class="card-post-image" :style="{backgroundImage: 'url('+ post.image +')'}" @click="sendToPost(post._id)" />
     <div class="card-post-title">
       <span>
         {{ post.title }}
@@ -33,8 +32,8 @@ export default Vue.extend({
       name: 'CardPost'
     }
   },
-  methods:{
-    sendToPost(id){
+  methods: {
+    sendToPost (id) {
       this.$router.push('/art/' + id)
     }
   }
@@ -57,9 +56,10 @@ export default Vue.extend({
   }
 
   .card-post-image {
-    width: 100%;
+    width: 250px;
     height: 100%;
     background-size: cover;
+    background-position: center;
     cursor: pointer;
   }
   .card-post-title {
