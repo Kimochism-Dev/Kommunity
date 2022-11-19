@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import Menu from '../shared/Menu.vue'
 import SearchButtons from '~/components/SearchButtons.vue'
@@ -19,6 +19,11 @@ export default Vue.extend({
   data () {
     return {
       name: 'index'
+    }
+  },
+  mounted () {
+    if (this.$route.query.tags) {
+      this.$store.commit('feed/SET_SHOW_TAGS', true)
     }
   }
 })

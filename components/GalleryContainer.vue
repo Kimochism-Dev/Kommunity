@@ -29,12 +29,11 @@ export default Vue.extend({
       const query = this.$route.query
 
       const url = query?.tags ? `/posts?tags=${query?.tags}` : '/posts'
-
       this.$axios.get(url)
         .then((response) => {
           this.$store.commit('feed/SET_POSTS', this.shuffle(response.data))
         }).catch((error) => {
-          console.log(`Erro: ${error}`)
+          console.error(`Error: ${error}`)
         }).finally(() => {
           this.loadingScreen = false
         })
@@ -64,6 +63,7 @@ export default Vue.extend({
   padding-bottom: 50px;
   max-width: 95vw;
   column-count: 7;
+  transition: .3s all ease;
 }
 
 .loader{
