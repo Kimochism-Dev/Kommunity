@@ -110,6 +110,13 @@ export default Vue.extend({
       date_post: '',
       file: '',
       postNow: '',
+      post: {
+        title: '',
+        description: '',
+        tags: [],
+        email: this.user.email,
+        isPublic: true
+      },
       user: ''
     }
   },
@@ -122,6 +129,19 @@ export default Vue.extend({
     },
     changeDatePost (e) {
       this.postNow = e.target.id
+    },
+    async createPost(){
+      const formData = new FormData();
+      formData.append("image", this.file);
+      const post = await this.$axios.post('/posts', this.post)
+      
+      await this.$axios.post(`/posts/${post._id}/image`, {
+        formData
+      }, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
     }
   }
 })
