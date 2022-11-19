@@ -1,26 +1,51 @@
 <template>
-  <div class="container-login">
-    <div class="login-inputs">
+  <div class="container-register">
+    <div class="register-inputs">
       <h1 class="main-title-style">
         Kommunity
       </h1>
+      <label for="">Nome</label>
+      <input 
+        v-model="user.name"
+        type="password" 
+        placeholder="John Doe" 
+        required
+      />
+      <label for="">Nome de usuário</label>
+      <input 
+        v-model="user.name"
+        type="password" 
+        placeholder="@johndoe" 
+        required
+      />
       <label for="">Email</label>
       <input
-        v-model="email"
-        type="text"
-        placeholder="example@community.com"
+        v-model="user.name"
+        type="email"
+        placeholder="johndoe@kommunity.com"
         required
       >
       <label for="">Senha</label>
-      <input v-model="password" type="password" placeholder="Senha" required>
+      <input 
+        v-model="user.name" 
+        type="password" 
+        placeholder="Senha" 
+        required
+      />
+      <label for="">Repetir Senha</label>
+      <input 
+        v-model="user.name"
+        type="password" 
+        placeholder="Senha" 
+        required
+      />
       <button @click="handleLogin">
-        Entrar
+        Cadastrar
       </button>
       <span>
-        Ainda não possui conta?
-        
-        <NuxtLink to="/register"> 
-          <b>Cadastre-se</b>
+        Já possui conta?
+        <NuxtLink to="/login"> 
+          <b>Entre agora!</b>
         </NuxtLink>
       </span>
     </div>
@@ -38,30 +63,14 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'LoginComponent',
+  name: 'RegisterComponent',
   data () {
     return {
-      email: '',
-      password: ''
-    }
-  },
-  methods: {
-    async handleLogin () {
-      if (this.password.length < 6) {
-        alert('Senha precisa ter 6 ou mais caracteres')
-        return
-      }
-
-      const response = await this.$axios.post('/users/signin', {
-        email: this.email,
-        password: this.password
-      })
-
-      if (response.data) {
-        const { idToken } = response.data
-        localStorage.setItem('idToken', idToken)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        this.$router.push('/')
+      user: {
+        name: '',
+        nickname: '',
+        email: '',
+        password: '',
       }
     }
   }
@@ -69,32 +78,38 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.container-login {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
+.container-register {
+    background-color: red;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
 }
-
 .background {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-image: url("https://my4kwallpapers.com/wp-content/uploads/2021/06/Anime-Wallpaper.jpg");
+  background-image: url("https://wallpaperaccess.com/full/4839734.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+.main-title-style{
+    margin: 0px;
+    padding: 10px 0px;
+    
+}
 .opacity {
   width: 100%;
   height: 100%;
   background-color: #0000007b;
+  align-items: flex-end;
   flex-direction: column;
   display: flex;
   span {
     padding: 24px;
     font-weight: 600;
-    color: #ecebeb7b;
+    color: #ecebeb93;
     letter-spacing: 1px;
     a {
       color: #ecebeb7b;
@@ -103,11 +118,11 @@ export default Vue.extend({
   }
 }
 
-.login-inputs {
+.register-inputs {
   position: absolute;
   width: 340px;
-  right: 20vw;
-  top: 20vh;
+  left: 10vw;
+  top: 4vh;
   padding: 24px;
   border: 5px solid black;
   background-color: white;
