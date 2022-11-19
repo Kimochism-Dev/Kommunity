@@ -4,7 +4,7 @@
       <Preloader />
     </div>
     <div v-if="!loadingScreen" class="container-gallery">
-      <CardGallery v-for="(item, i) in gallery" :key="i" :item="item" />
+      <CardGallery v-for="(item, i) in $store.getters['feed/posts']" :key="i" :item="item" />
     </div>
   </div>
 </template>
@@ -18,7 +18,6 @@ export default Vue.extend({
   components: { Preloader },
   data () {
     return {
-      gallery: [],
       loadingScreen: true
     }
   },
@@ -27,9 +26,13 @@ export default Vue.extend({
   },
   methods: {
     getArts () {
-      this.$axios.get('/posts')
+      const query = this.$route.query
+
+      const url = query?.tags ? `/posts?tags=${query?.tags}` : '/posts'
+
+      this.$axios.get(url)
         .then((response) => {
-          this.gallery = this.shuffle(response.data)
+          this.$store.commit('feed/SET_POSTS', this.shuffle(response.data))
         }).catch((error) => {
           console.log(`Erro: ${error}`)
         }).finally(() => {

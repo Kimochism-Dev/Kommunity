@@ -18,8 +18,8 @@
       </button>
       <span>
         Ainda não possui conta?
-        
-        <NuxtLink to="/register"> 
+
+        <NuxtLink to="/register">
           <b>Cadastre-se</b>
         </NuxtLink>
       </span>
