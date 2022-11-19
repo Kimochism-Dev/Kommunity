@@ -2,7 +2,7 @@
   <div>
     <div class="card-post-options" @click="closeDialog()">
       <button>
-        <img src="https://cdn-icons-png.flaticon.com/512/860/860829.png">
+        <img src="https://cdn-icons-png.flaticon.com/512/1194/1194711.png">
       </button>
     </div>
     <div v-if="dialog" class="container-post-dialog">
@@ -12,26 +12,38 @@
             <img src="https://www.pngitem.com/pimgs/m/164-1646917_close-button-icon-png-x-icon-transparent-png.png" alt="">
           </button>
         </div>
-        <h1>Excluir post</h1>
-        <h3>Deseja mesmo excluir essa publicação?</h3>
-        <span>
-          Ao pressionar em <b>Confirmar</b> sua publicação será imediatamente deletada do <b>Kommunity</b> e não haverá formas de recupera-la.
-          <br>
-          <br>
-          Tem certeza de que quer fazer isso?
-        </span>
-        <div class="post-dialog-actions">
-          <button @click="closeDialog()">
-            Cancelar
+        <div class="post-dialog-left">
+          <div class="post-dialog-image" :style="{ backgroundImage: 'url('+ post.image +')' }" />
+        </div>
+        <div class="post-dialog-right">
+          <h2>Parabéns!</h2>
+          <h3>O seu post atingiu a quantidade x lá, e agora está elegível para a venda</h3>
+          <p>
+            Olá <b>{{ user.name }}</b>, a equipe da kimochism agradece pelo seu empenho e a participação em nossa comunidade!
+            <br>
+            Estamos muito interessados na sua ilustração e gostariamos de que ela fizesse parte da
+            nossa galeria original.
+            <br>
+            <br>
+            Trouxemos essa proposta para você:
+          </p>
+          <label class="post-dialog-value">
+            R$ 90
+          </label>
+          <div class="checkbox-term">
+            <input id="term" type="checkbox" name="">
+            <label for="term">Termos e condições</label>
+          </div>
+          <button>
+            Aceito a proposta
           </button>
-          <button>Confirmar</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 export default Vue.extend({
   props: {
@@ -43,8 +55,12 @@ export default Vue.extend({
   data () {
     return {
       name: 'CardPostDialog',
-      dialog: false
+      dialog: false,
+      user: ''
     }
+  },
+  beforeMount () {
+    this.user = JSON.parse(localStorage.getItem('user'))
   },
   methods: {
     closeDialog () {
@@ -80,25 +96,24 @@ export default Vue.extend({
 .container-post-dialog {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.500);
   position: fixed;
-  justify-content: center;
-  align-items: center;
-  display: flex;
   top: 0px;
   left: 0px;
   z-index: 1;
+  background-color: rgba(0, 0, 0, 0.500);
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 .subcontainer-post-dialog {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   max-height: 800px;
   padding: 20px;
   border: 5px solid black;
   box-shadow: black 6px 6px;
   background-color: white;
   justify-content: center;
-  flex-direction: column;
   position: relative;
   display: flex;
   z-index: 1px;
@@ -170,6 +185,65 @@ export default Vue.extend({
       background-color: black;
       color: white;
     }
+  }
+}
+
+/* Modal compra */
+
+.post-dialog-left {
+  width: 100%;
+  max-width: 260px;
+  background-color: #eaeaea;
+  padding: 20px;
+}
+.post-dialog-image {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+}
+.post-dialog-right {
+  text-align: center;
+  padding: 20px;
+  width: 400px;
+  height: 100%;
+  flex-direction: column;
+  display: flex;
+  h2 {
+    margin: 0px;
+  }
+  p {
+    line-height: 22px;
+  }
+  button {
+    color: black;
+    padding: 12px;
+    background-color: white;
+    border: 5px solid black;
+    box-shadow: black 6px 6px;
+    font-weight: bold;
+    z-index: 1;
+  }
+}
+
+.post-dialog-value{
+    width: 100%;
+    background-color: rgb(53, 202, 53);
+    color: white;
+    margin: 0px auto;
+}
+.checkbox-term {
+  padding: 8px 0px;
+  margin: 0px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  input {
+    cursor: pointer
+  }
+  label {
+    cursor: pointer
   }
 }
 </style>

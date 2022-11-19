@@ -3,6 +3,7 @@
     <div class="card-post-options">
       <CardPostDialog :post="post" />
       <CardPostDialogDelete :post="post" />
+      <CardPostDialogSell :post="post" />
     </div>
     <div class="card-post-title">
       <span>
