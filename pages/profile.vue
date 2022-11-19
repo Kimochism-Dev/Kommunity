@@ -24,11 +24,22 @@
         Seus posts
       </h1>
       <div class="container-posts-profile">
-        <CardPost
-          v-for="(post, i) in posts"
-          :key="i"
-          :post="post"
-        />
+        <div v-if="posts.length" class="container-posts-profile">
+          <CardPost
+            v-for="(post, i) in posts"
+            :key="i"
+            :post="post"
+          />
+        </div>
+        <div v-else class="unpublished">
+          <h3>Você ainda não tem nenhum post =(</h3>
+          <br>
+          <NuxtLink to="/post">
+            <button>
+              Criar agora
+            </button>
+          </NuxtLink>
+        </div>
       </div>
     </div>
     <Footer />
@@ -48,84 +59,27 @@ export default Vue.extend({
   data () {
     return {
       item: {},
-      posts: [
-        {
-          title: 'EuláEucáEuláEucáEuláEucáEuláEucáEuláEucáEuláEucá',
-          about: 'About the image etc',
-          tags: [
-            'genshin',
-            'waifu',
-            'girls',
-            'wow',
-            'fanart'
-          ],
-          isPosted: false,
-          image: 'https://i.pinimg.com/736x/5e/c7/04/5ec7044e2aee86553f4dabe18e055cac.jpg'
-        },
-        {
-          title: 'Noelle main joel',
-          about: 'About the image etc',
-          tags: [
-            'genshin',
-            'waifu',
-            'girls',
-            'wow',
-            'fanart'
-          ],
-          isPosted: false,
-          image: 'https://i.pinimg.com/564x/e0/1b/bd/e01bbdb2bf822e114f4806ecb981084d.jpg'
-        },
-        {
-          title: 'Raiden Shogun',
-          about: 'About the image etc',
-          tags: [
-            'genshin',
-            'waifu',
-            'girls',
-            'wow',
-            'fanart'
-          ],
-          isPosted: true,
-          image: 'https://i.pinimg.com/564x/f4/d7/49/f4d7496c987156531e60d411e6d3987a.jpg'
-        },
-        {
-          title: 'Laylalalala',
-          about: 'About the image etc',
-          tags: [
-            'genshin',
-            'waifu',
-            'girls',
-            'wow',
-            'fanart'
-          ],
-          isPosted: true,
-          image: 'https://i.pinimg.com/564x/54/8b/dd/548bdd120ae86276b54e0e5e95c1d373.jpg'
-        },
-        {
-          title: 'Shenhe 💕',
-          about: 'About the image etc',
-          tags: [
-            'genshin',
-            'waifu',
-            'girls',
-            'wow',
-            'fanart'
-          ],
-          isPosted: true,
-          image: 'https://i.pinimg.com/564x/f1/ce/c9/f1cec91ff4e1122325e6ea188a39f93d.jpg'
-        }
-      ],
+      posts: [],
       loadingScreen: true,
       user: ''
     }
   },
   beforeMount () {
     this.user = JSON.parse(localStorage.getItem('user'))
-    // simular loading
-    setTimeout(() => {
-      this.loadingScreen = false
-    }, 1000)
-  }
+    this.getPostsUser()
+  },
+  methods:{
+    getPostsUser(){
+      this.$axios.get(`/posts?email=${this.user.email}`)
+        .then((response) => {
+          // this.posts = response.data
+        }).catch((error) => {
+          console.log(error)
+        }).finally(() => {
+          this.loadingScreen = false
+        })
+    }
+  },
 })
 </script>
 <style lang="scss" scoped>
@@ -194,5 +148,21 @@ export default Vue.extend({
   justify-content: center;
   flex-wrap: wrap;
   display: flex;
+}
+.unpublished {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  button {
+    color: black;
+    box-shadow: black 6px 6px;
+    background-color: white;
+    border: 5px solid black;
+    font-weight: bold;
+    padding: 8px 24px;
+    margin: 0 auto;
+    cursor: pointer;
+  }
 }
 </style>
