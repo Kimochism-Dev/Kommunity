@@ -1,14 +1,17 @@
 <template>
   <div>
-    <div class="card-post-options" @click="closeDialog()">
-      <button>
+    <div class="card-post-options" @click="actionDialog(post.isPurchasable)">
+      <button 
+        :class="post.isPurchasable? 'purchasable' : 'not-purchasable'"
+        :disabled="post.isPurchasable? '' : 'disabled'"
+        >
         <img src="https://cdn-icons-png.flaticon.com/512/1194/1194711.png">
       </button>
     </div>
     <div v-if="dialog" class="container-post-dialog">
       <div class="subcontainer-post-dialog">
         <div class="post-dialog-close">
-          <button @click="closeDialog()">
+          <button @click="actionDialog(post.isPurchasable)">
             <img src="https://www.pngitem.com/pimgs/m/164-1646917_close-button-icon-png-x-icon-transparent-png.png" alt="">
           </button>
         </div>
@@ -17,7 +20,7 @@
         </div>
         <div class="post-dialog-right">
           <h2>Parabéns!</h2>
-          <h3>O seu post atingiu a quantidade x lá, e agora está elegível para a venda</h3>
+          <h3>O seu post atingiu a quantidade de 100 likes!<br> E agora está elegível para a venda</h3>
           <p>
             Olá <b>{{ user.name }}</b>, a equipe da kimochism agradece pelo seu empenho e a participação em nossa comunidade!
             <br>
@@ -63,9 +66,11 @@ export default Vue.extend({
     this.user = JSON.parse(localStorage.getItem('user'))
   },
   methods: {
-    closeDialog () {
-      this.dialog = !this.dialog
-    }
+    actionDialog (purchasable) {
+      if(purchasable){
+        this.dialog = !this.dialog
+      }
+    },
   }
 })
 </script>
@@ -84,12 +89,18 @@ export default Vue.extend({
   button {
     width: 100%;
     height: 100%;
-    padding: 8px;
     margin: 0px;
-    background-color: transparent;
+    padding: 0px;
+    border: 2px solid black;
     cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    display: flex;
     img {
-      width: 100%;
+      width: 70%;
+      height: 70%;
+      padding: 8px;
+      display: flex;
     }
   }
 }
@@ -229,7 +240,7 @@ export default Vue.extend({
 
 .post-dialog-value{
     width: 100%;
-    background-color: rgb(53, 202, 53);
+    background-color: #28a745;
     color: white;
     margin: 0px auto;
 }
@@ -245,5 +256,16 @@ export default Vue.extend({
   label {
     cursor: pointer
   }
+}
+
+.purchasable {
+  background-color: #28a745;
+  img {
+    filter: invert(1);
+  }
+}
+
+.not-purchasable {
+  background-color: grey
 }
 </style>

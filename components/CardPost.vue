@@ -1,9 +1,11 @@
 <template>
-  <div class="container-card-post" :style="{backgroundImage: 'url('+ post.image +')'}">
+  <div class="container-card-post">
     <div class="card-post-options">
       <CardPostDialog :post="post" />
       <CardPostDialogDelete :post="post" />
       <CardPostDialogSell :post="post" />
+    </div>
+    <div class="card-post-image" :style="{backgroundImage: 'url('+ post.image +')'}" @click="sendToPost(post._id)">
     </div>
     <div class="card-post-title">
       <span>
@@ -30,6 +32,11 @@ export default Vue.extend({
     return {
       name: 'CardPost'
     }
+  },
+  methods:{
+    sendToPost(id){
+      this.$router.push('/art/' + id)
+    }
   }
 })
 </script>
@@ -44,10 +51,17 @@ export default Vue.extend({
     width: 250px;
     height: 380px;
     position: relative;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    justify-content: center;
     display: flex;
   }
 
+  .card-post-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    cursor: pointer;
+  }
   .card-post-title {
     height: 30px;
     padding: 20px;
