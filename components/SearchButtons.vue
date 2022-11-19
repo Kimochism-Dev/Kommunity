@@ -6,7 +6,7 @@
       </button>
     </NuxtLink>
     <NuxtLink to="/feed">
-      <button>
+      <button @click="$store.commit('feed/SET_SHOW_TAGS', true)">
         Descobrir
       </button>
     </NuxtLink>
