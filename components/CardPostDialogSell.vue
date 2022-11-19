@@ -91,6 +91,7 @@ export default Vue.extend({
     height: 100%;
     margin: 0px;
     padding: 0px;
+    border: 2px solid black;
     cursor: pointer;
     justify-content: center;
     align-items: center;
