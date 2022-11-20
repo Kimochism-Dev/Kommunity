@@ -24,7 +24,7 @@
                 <img src="https://cdn.discordapp.com/attachments/512809986699690004/1019676357246070895/arrow-simple-black-top.png">
               </div>
               <span>
-                Clique para carregar imagens ou Gifs
+                Clique ou arraste para carregar imagens ou Gifs
               </span>
               <span>
                 Recomendação: use arquivos .jpg de alta qualidade com menos de 20 MB ou arquivos .mp4 com menos de 2 GB
