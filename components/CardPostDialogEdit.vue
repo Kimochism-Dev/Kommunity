@@ -26,14 +26,30 @@
           </button>
         </div>
         <label for="">Titulo</label>
-        <input type="text" placeholder="Titulo" :value="post.title">
+        <input
+          v-model="postEdited.title"
+          type="text"
+          placeholder="Titulo"
+        >
         <label for="">Sobre</label>
-        <input type="text" placeholder="Sobre" :value="post.about">
-        <label for="">Tags</label>
-        <input type="text" placeholder="Tags" :value="post.tags">
-        <div v-if="!post.isPosted" class="already-post">
+        <input
+          v-model="postEdited.description"
+          type="text"
+          placeholder="Sobre"
+        >
+        <label for="">Tags ( separar tags por vírgula ",")</label>
+        <input
+          v-model="postEdited.tags"
+          type="text"
+          placeholder="Tags"
+        >
+        <div v-if="!postEdited.isPosted" class="already-post">
           <label for="">Data de publicação</label>
-          <input type="date" placeholder="Data da publicação" value="">
+          <input
+            type="date"
+            placeholder="Data da publicação"
+            value=""
+          >
           <label for="">Horário de publicação</label>
           <select>
             <option>Manhã - 10:00 </option>
@@ -45,7 +61,9 @@
           <button @click="closeDialog()">
             Cancelar
           </button>
-          <button>Atualizar</button>
+          <button @click="updatePost()">
+            Atualizar
+          </button>
         </div>
       </div>
     </div>
@@ -65,8 +83,13 @@ export default Vue.extend({
     return {
       name: 'CardPostDialog',
       dialog: false,
-      postEdited: this.post
+      postEdited: '',
+      user: ''
     }
+  },
+  beforeMount () {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.postEdited = this.post
   },
   methods: {
     closeDialog () {
@@ -77,6 +100,24 @@ export default Vue.extend({
       const toagle = this.$refs.toagleBody
       const TOAGLE_OFF = 'toagle-disabled'
       toagle.classList.contains(TOAGLE_OFF) ? toagle.classList.remove(TOAGLE_OFF) : toagle.classList.add(TOAGLE_OFF)
+    },
+    catchTags () {
+      console.log('asd')
+    },
+    async updatePost () {
+      await this.$axios({
+        method: 'put',
+        url: `/posts/${this.post._id}`,
+        data: this.postEdited,
+        config: {
+          headers: {
+            Authorization: this.user._id
+          }
+        }
+      }).finally(() => {
+        this.closeDialog()
+        // this.$router.go(0)
+      })
     }
   }
 })

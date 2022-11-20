@@ -7,6 +7,9 @@
     </h1>
     <div class="user">
       <div v-if="user" class="user-info">
+        <NuxtLink to="/admin">
+          <button>Admin</button>
+        </NuxtLink>
         <NuxtLink to="/post">
           <button>Create</button>
         </NuxtLink>
