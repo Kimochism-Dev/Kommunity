@@ -64,8 +64,9 @@ export default Vue.extend({
           .then((response) => {
             if (response.data.length > 1) {
               const currentItems = this.$store.getters['feed/posts']
-              const newItems = new Set([...new Set(currentItems)].concat(this.shuffle(response.data)))
-              this.$store.commit('feed/SET_POSTS', newItems)
+              const newItems = [...currentItems, ...response.data]
+
+              this.$store.commit('feed/SET_POSTS', new Set(newItems))
               $state.loaded()
             } else {
               $state.complete()

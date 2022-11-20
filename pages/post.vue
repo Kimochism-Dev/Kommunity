@@ -97,12 +97,8 @@
             <label>
               📅 <b>Quando quer que o post seja publicado?</b>
             </label>
-            <select>
-              <option>Manhã - 10:00 </option>
-              <option>Tarde - 16:00</option>
-              <option>Noite - 22:00</option>
-            </select>
-            <input id="" type="date" name="">
+            <input v-model="date" type="date">
+            <input v-model="hour" type="time">
           </div>
           <input
             class="send-form"
@@ -128,10 +124,11 @@ export default Vue.extend({
   components: { Menu, Footer, CreatedDialog },
   data () {
     return {
-      date_post: '',
+      date: '',
+      hour: '',
       file: '',
       fileToSend: '',
-      postNow: '',
+      postNow: 'now',
       respPost: {},
       post: {
         title: '',
@@ -158,6 +155,11 @@ export default Vue.extend({
     async createPost () {
       const formData = new FormData(this.$refs.post_form)
       formData.append('image', this.fileToSend)
+
+      if (this.postNow === 'later') {
+        this.post.date = `${this.date}:${this.hour}:00`
+      }
+
       const post = await this.$axios.post('/posts', this.post)
       await this.$axios({
         method: 'post',
