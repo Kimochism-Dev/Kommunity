@@ -13,6 +13,18 @@
           </button>
         </div>
         <h1>Editar post</h1>
+        <div class="toaggle-visible">
+          <span>
+            <b>Tornar meu post visivel para todos</b>
+          </span>
+          <button
+            ref="toagleBody"
+            :class="post.isPublic ? 'toagle-body' : 'toagle-body toagle-disabled'"
+            @click="changeVisibility(post.isPublic)"
+          >
+            <div class="toagle-circle" />
+          </button>
+        </div>
         <label for="">Titulo</label>
         <input type="text" placeholder="Titulo" :value="post.title">
         <label for="">Sobre</label>
@@ -40,7 +52,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 export default Vue.extend({
   props: {
@@ -52,12 +64,19 @@ export default Vue.extend({
   data () {
     return {
       name: 'CardPostDialog',
-      dialog: false
+      dialog: false,
+      postEdited: this.post
     }
   },
   methods: {
     closeDialog () {
       this.dialog = !this.dialog
+    },
+    changeVisibility (visible) {
+      this.postEdited.isPublic = !visible
+      const toagle = this.$refs.toagleBody
+      const TOAGLE_OFF = 'toagle-disabled'
+      toagle.classList.contains(TOAGLE_OFF) ? toagle.classList.remove(TOAGLE_OFF) : toagle.classList.add(TOAGLE_OFF)
     }
   }
 })
@@ -148,6 +167,39 @@ export default Vue.extend({
     img{
       width: 100%;
     }
+  }
+}
+.toaggle-visible{
+  justify-content: space-between;
+  padding: 20px 0px 10px 0px;
+  align-items: center;
+  display: flex;
+  .toagle-body {
+    width: 45px;
+    height: 26px;
+    background-color: green;
+    border-radius: 100px;
+    border: none;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .toagle-circle {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 100%;
+    transition: .3s;
+    transform: translate(20px);
+  }
+  .toagle-disabled {
+    background-color: gray;
+    justify-content: left;
+  }
+  .toagle-disabled > .toagle-circle {
+    transition: .3s;
+    transform: translate(2px);
   }
 }
 .post-dialog-actions{

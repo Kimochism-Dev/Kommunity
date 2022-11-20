@@ -18,20 +18,22 @@
           Ao pressionar em <b>Confirmar</b> sua publicação será imediatamente deletada do <b>Kommunity</b> e não haverá formas de recupera-la.
           <br>
           <br>
-          Tem certeza de que quer fazer isso?
+          <b>Tem certeza de que quer fazer isso?</b>
         </span>
         <div class="post-dialog-actions">
           <button @click="closeDialog()">
             Cancelar
           </button>
-          <button>Confirmar</button>
+          <button @click="confirmDelete()">
+            Confirmar
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 export default Vue.extend({
   props: {
@@ -43,12 +45,30 @@ export default Vue.extend({
   data () {
     return {
       name: 'CardPostDialog',
-      dialog: false
+      dialog: false,
+      user: ''
     }
+  },
+  beforeMount () {
+    this.user = JSON.parse(localStorage.getItem('user'))
   },
   methods: {
     closeDialog () {
       this.dialog = !this.dialog
+    },
+    async confirmDelete () {
+      await this.$axios({
+        method: 'delete',
+        url: `/posts/${this.post._id}`,
+        config: {
+          headers: {
+            Authorization: this.user._id
+          }
+        }
+      }).finally(() => {
+        this.closeDialog()
+        this.$router.go(0)
+      })
     }
   }
 })

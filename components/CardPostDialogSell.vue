@@ -28,7 +28,7 @@
             nossa galeria original.
             <br>
             <br>
-            Trouxemos essa proposta para você:
+            <b>Trouxemos essa proposta para você:</b>
           </p>
           <label class="post-dialog-value">
             R$ 90
@@ -240,7 +240,8 @@ export default Vue.extend({
 
 .post-dialog-value{
     width: 100%;
-    background-color: #28a745;
+    /* background-color: #28a745; */
+    background-color: #3198e8;
     color: white;
     margin: 0px auto;
 }
@@ -259,7 +260,7 @@ export default Vue.extend({
 }
 
 .purchasable {
-  background-color: #28a745;
+  background-color: #3198e8;
   img {
     filter: invert(1);
   }

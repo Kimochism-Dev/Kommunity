@@ -32,7 +32,10 @@
           />
         </div>
         <div v-else class="unpublished">
-          <img src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/genshin-impact-qiqi/sticker_10.png?8a65468de2ac98e87dc9b6ddbe8502a9&d=200x200" width="200px"/>
+          <img
+            src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/genshin-impact-qiqi/sticker_10.png?8a65468de2ac98e87dc9b6ddbe8502a9&d=200x200"
+            width="200px"
+          >
           <h3>Você ainda não tem nenhum post =(</h3>
           <br>
           <NuxtLink to="/post">
@@ -69,8 +72,8 @@ export default Vue.extend({
     this.user = JSON.parse(localStorage.getItem('user'))
     this.getPostsUser()
   },
-  methods:{
-    getPostsUser(){
+  methods: {
+    getPostsUser () {
       this.$axios.get(`/posts?email=${this.user.email}`)
         .then((response) => {
           this.posts = response.data
@@ -80,7 +83,7 @@ export default Vue.extend({
           this.loadingScreen = false
         })
     }
-  },
+  }
 })
 </script>
 <style lang="scss" scoped>
@@ -144,9 +147,11 @@ export default Vue.extend({
   padding-top: 160px;
 }
 .container-posts-profile {
-  padding: 20px;
+  padding-top: 10px;
   padding-bottom: 80px;
+  max-width: 1280px;
   min-height: 300px;
+  margin: 0 auto;
   justify-content: center;
   flex-wrap: wrap;
   display: flex;
