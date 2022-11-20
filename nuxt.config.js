@@ -24,7 +24,8 @@ export default {
       src: '@plugins/aos',
       mode: 'client'
     },
-    '@plugins/axios'
+    '@plugins/axios',
+    { src: '@plugins/infiniteloading', ssr: false }
   ],
 
   // purgeCSS

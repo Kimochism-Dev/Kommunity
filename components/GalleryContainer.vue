@@ -1,27 +1,33 @@
 <template>
   <div>
-    <div v-show="loadingScreen" class="loader">
-      <Preloader />
+    <div class="container-gallery">
+      <CardGallery
+        v-for="(item, i) in $store.getters['feed/posts']"
+        :key="i"
+        :item="item"
+      />
     </div>
-    <div v-if="!loadingScreen" class="container-gallery">
-      <CardGallery v-for="(item, i) in $store.getters['feed/posts']" :key="i" :item="item" />
-    </div>
+    <InfiniteLoading spinner="spiral" @infinite="infiniteScroll" />
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import Preloader from '../shared/Preloader.vue'
 
 export default Vue.extend({
   name: 'GalleryContainer',
-  components: { Preloader },
   data () {
     return {
-      loadingScreen: true
+      loadingScreen: true,
+      skip: 0
     }
   },
-  beforeMount () {
+  computed: {
+    url () {
+      return 'posts?skip=' + this.skip
+    }
+  },
+  created () {
     this.getArts()
   },
   methods: {
@@ -50,9 +56,26 @@ export default Vue.extend({
         ]
       }
       return array
+    },
+    infiniteScroll ($state) {
+      setTimeout(() => {
+        this.skip++
+        this.$axios.get(this.url)
+          .then((response) => {
+            if (response.data.length > 1) {
+              const currentItems = this.$store.getters['feed/posts']
+              const newItems = new Set([...new Set(currentItems)].concat(this.shuffle(response.data)))
+              this.$store.commit('feed/SET_POSTS', newItems)
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          }).catch((err) => { console.log(err) })
+      }, 500)
     }
   }
 })
+
 </script>
 
 <style lang="scss" scoped>
@@ -63,12 +86,5 @@ export default Vue.extend({
   padding-bottom: 50px;
   max-width: 95vw;
   column-count: 7;
-  transition: .3s all ease;
-}
-
-.loader{
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
 }
 </style>
