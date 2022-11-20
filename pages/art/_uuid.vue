@@ -8,13 +8,11 @@
       <div v-if="item" class="container-art">
         <!-- btn absolute -->
         <NuxtLink to="/">
-          <a class="btn-primary">
-            Voltar
-          </a>
+          <a class="btn-primary"> Voltar </a>
         </NuxtLink>
         <!-- image contrast -->
         <div class="art-left">
-          <img :src="item && item.image ? item.image : ''" alt="" width="500">
+          <img :src="item && item.image ? item.image : ''" alt="" width="500" />
         </div>
         <!-- info author -->
         <div class="art-right">
@@ -22,10 +20,14 @@
             <div class="art-options">
               <div class="left-options">
                 <button>
-                  o
+                  {{ this.item.likes }}
                 </button>
               </div>
-              <div class="right-options">
+              <div
+                class="right-options"
+                v-bind:class="{ unliked: !isLikedByMe }"
+                @click="like()"
+              >
                 <button>💖</button>
               </div>
             </div>
@@ -35,11 +37,14 @@
             <p>
               {{ item?.description }}
             </p>
-            <hr class="line-break">
+            <hr class="line-break" />
             <div class="author-info">
               <div class="column-left">
                 <div class="icon-author">
-                  <img :src="item && item.author?.image ? item.author.image : ''" alt="">
+                  <img
+                    :src="item && item.author?.image ? item.author.image : ''"
+                    alt=""
+                  />
                 </div>
               </div>
               <div class="column-right">
@@ -47,13 +52,19 @@
               </div>
             </div>
             <div class="art-tags">
-              <span v-for="(tag, i) in item.tags" :key="i" class="tag"> #{{ tag }}</span>
+              <span v-for="(tag, i) in item.tags" :key="i" class="tag">
+                #{{ tag }}</span
+              >
             </div>
-            <br>
-            <hr class="line-break">
+            <br />
+            <hr class="line-break" />
             <div class="container-comments">
               <div v-if="item.replies">
-                <CommentaryItem v-for="(replie,j) in item.replies" :key="j" :item="replie" />
+                <CommentaryItem
+                  v-for="(replie, j) in item.replies"
+                  :key="j"
+                  :item="replie"
+                />
               </div>
               <div v-else class="empty">
                 <span>Este post ainda não possui comentários</span>
@@ -63,46 +74,63 @@
         </div>
       </div>
     </div>
-    <h1 class="art-similar">
-      Veja também
-    </h1>
+    <h1 class="art-similar">Veja também</h1>
     <GalleryContainer />
     <Footer />
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import CommentaryItem from '~/components/CommentaryItem.vue'
-import Footer from '~/shared/Footer.vue'
-import Menu from '~/shared/Menu.vue'
-import Preloader from '~/shared/Preloader.vue'
+import Vue from "vue";
+import CommentaryItem from "~/components/CommentaryItem.vue";
+import Footer from "~/shared/Footer.vue";
+import Menu from "~/shared/Menu.vue";
+import Preloader from "~/shared/Preloader.vue";
 
 export default Vue.extend({
-  name: 'ArtPage',
+  name: "ArtPage",
   components: { CommentaryItem, Footer, Menu, Preloader },
-  data () {
+  data() {
     return {
       item: {},
-      loadingScreen: true
-    }
+      loadingScreen: true,
+      isLikedByMe: false,
+      myId: "",
+    };
   },
-  beforeMount () {
-    this.getArt()
+  beforeMount() {
+    this.getArt();
   },
   methods: {
-    getArt () {
-      this.$axios.get(`/posts/${this.$route.params.uuid}`)
+    getArt() {
+      this.$axios
+        .get(`/posts/${this.$route.params.uuid}`)
         .then((response) => {
-          this.item = response.data
-        }).catch((error) => {
-          console.log(error)
-        }).finally(() => {
-          this.loadingScreen = false
+          this.item = response.data;
+          this.checkIsLikedByMe();
         })
-    }
-  }
-})
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.loadingScreen = false;
+        });
+    },
+    checkIsLikedByMe() {
+      this.myId = JSON.parse(localStorage.getItem("user"))._id;
+      const isLiked = !!this.item.likers.filter((liker) => liker == this.myId)
+        .length;
+      this.isLikedByMe = isLiked;
+    },
+    async like() {
+      const like = await this.$axios.post(
+        `/posts/${this.$route.params.uuid}/likes`,
+        { userId: this.myId }
+      );
+      this.getArt();
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -207,6 +235,10 @@ a {
     background-color: white;
     cursor: pointer;
   }
+}
+
+.unliked {
+  filter: grayscale(100);
 }
 
 .author-info {
