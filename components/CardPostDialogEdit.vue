@@ -102,7 +102,7 @@ export default Vue.extend({
       toagle.classList.contains(TOAGLE_OFF) ? toagle.classList.remove(TOAGLE_OFF) : toagle.classList.add(TOAGLE_OFF)
     },
     catchTags () {
-      console.log('asd')
+      console.log('Separar tags e botar no array')
     },
     async updatePost () {
       await this.$axios({

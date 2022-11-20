@@ -12,20 +12,20 @@
         </NuxtLink>
         <!-- image contrast -->
         <div class="art-left">
-          <img :src="item && item.image ? item.image : ''" alt="" width="500" />
+          <img :src="item && item.image ? item.image : ''" alt="" width="500">
         </div>
-        <!-- info author -->
+        <!-- info owner -->
         <div class="art-right">
           <div class="art-info">
             <div class="art-options">
               <div class="left-options">
                 <button>
-                  {{ this.item.likes }}
+                  {{ item.likes }}
                 </button>
               </div>
               <div
                 class="right-options"
-                v-bind:class="{ unliked: !isLikedByMe }"
+                :class="{ unliked: !isLikedByMe }"
                 @click="like()"
               >
                 <button>💖</button>
@@ -37,27 +37,21 @@
             <p>
               {{ item?.description }}
             </p>
-            <hr class="line-break" />
-            <div class="author-info">
+            <hr class="line-break">
+            <div class="owner-info">
               <div class="column-left">
-                <div class="icon-author">
-                  <img
-                    :src="item && item.author?.image ? item.author.image : ''"
-                    alt=""
-                  />
-                </div>
+                <div class="icon-owner" :style="{ backgroundImage: 'url('+ item.owner.picture +')' }" />
               </div>
               <div class="column-right">
-                <h3>{{ item.author?.name }}</h3>
+                <h3>{{ item.owner?.name }}</h3>
               </div>
             </div>
             <div class="art-tags">
               <span v-for="(tag, i) in item.tags" :key="i" class="tag">
-                #{{ tag }}</span
-              >
+                #{{ tag }}</span>
             </div>
-            <br />
-            <hr class="line-break" />
+            <br>
+            <hr class="line-break">
             <div class="container-comments">
               <div v-if="item.replies">
                 <CommentaryItem
@@ -74,63 +68,65 @@
         </div>
       </div>
     </div>
-    <h1 class="art-similar">Veja também</h1>
+    <h1 class="art-similar">
+      Veja também
+    </h1>
     <GalleryContainer />
     <Footer />
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import CommentaryItem from "~/components/CommentaryItem.vue";
-import Footer from "~/shared/Footer.vue";
-import Menu from "~/shared/Menu.vue";
-import Preloader from "~/shared/Preloader.vue";
+import Vue from 'vue'
+import CommentaryItem from '~/components/CommentaryItem.vue'
+import Footer from '~/shared/Footer.vue'
+import Menu from '~/shared/Menu.vue'
+import Preloader from '~/shared/Preloader.vue'
 
 export default Vue.extend({
-  name: "ArtPage",
+  name: 'ArtPage',
   components: { CommentaryItem, Footer, Menu, Preloader },
-  data() {
+  data () {
     return {
       item: {},
       loadingScreen: true,
       isLikedByMe: false,
-      myId: "",
-    };
+      myId: ''
+    }
   },
-  beforeMount() {
-    this.getArt();
+  beforeMount () {
+    this.getArt()
   },
   methods: {
-    getArt() {
+    getArt () {
       this.$axios
         .get(`/posts/${this.$route.params.uuid}`)
         .then((response) => {
-          this.item = response.data;
-          this.checkIsLikedByMe();
+          this.item = response.data
+          this.checkIsLikedByMe()
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error)
         })
         .finally(() => {
-          this.loadingScreen = false;
-        });
+          this.loadingScreen = false
+        })
     },
-    checkIsLikedByMe() {
-      this.myId = JSON.parse(localStorage.getItem("user"))._id;
-      const isLiked = !!this.item.likers.filter((liker) => liker == this.myId)
-        .length;
-      this.isLikedByMe = isLiked;
+    checkIsLikedByMe () {
+      this.myId = JSON.parse(localStorage.getItem('user'))._id
+      const isLiked = !!this.item.likers.filter(liker => liker === this.myId)
+        .length
+      this.isLikedByMe = isLiked
     },
-    async like() {
-      const like = await this.$axios.post(
+    async like () {
+      await this.$axios.post(
         `/posts/${this.$route.params.uuid}/likes`,
         { userId: this.myId }
-      );
-      this.getArt();
-    },
-  },
-});
+      )
+      this.getArt()
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -200,11 +196,12 @@ a {
   }
 }
 
-.icon-author {
+.icon-owner {
   width: 60px;
   height: 60px;
   border: 5px solid black;
   border-radius: 50px;
+  background-size: cover;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -219,7 +216,7 @@ a {
   display: flex;
   h1 {
     text-align: left;
-    padding: 34px 0;
+    padding: 20px 0;
     margin: 0;
   }
 }
@@ -241,7 +238,7 @@ a {
   filter: grayscale(100);
 }
 
-.author-info {
+.owner-info {
   justify-content: left;
   display: flex;
 }

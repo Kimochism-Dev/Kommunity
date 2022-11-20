@@ -5,19 +5,19 @@
         Kommunity
       </h1>
       <label for="">Nome</label>
-      <input 
+      <input
         v-model="user.name"
-        type="password" 
-        placeholder="John Doe" 
+        type="password"
+        placeholder="John Doe"
         required
-      />
+      >
       <label for="">Nome de usuário</label>
-      <input 
+      <input
         v-model="user.name"
-        type="password" 
-        placeholder="@johndoe" 
+        type="password"
+        placeholder="@johndoe"
         required
-      />
+      >
       <label for="">Email</label>
       <input
         v-model="user.name"
@@ -26,25 +26,25 @@
         required
       >
       <label for="">Senha</label>
-      <input 
-        v-model="user.name" 
-        type="password" 
-        placeholder="Senha" 
-        required
-      />
-      <label for="">Repetir Senha</label>
-      <input 
+      <input
         v-model="user.name"
-        type="password" 
-        placeholder="Senha" 
+        type="password"
+        placeholder="Senha"
         required
-      />
+      >
+      <label for="">Repetir Senha</label>
+      <input
+        v-model="user.name"
+        type="password"
+        placeholder="Senha"
+        required
+      >
       <button @click="handleLogin">
         Cadastrar
       </button>
       <span>
         Já possui conta?
-        <NuxtLink to="/login"> 
+        <NuxtLink to="/login">
           <b>Entre agora!</b>
         </NuxtLink>
       </span>
@@ -70,7 +70,7 @@ export default Vue.extend({
         name: '',
         nickname: '',
         email: '',
-        password: '',
+        password: ''
       }
     }
   }
@@ -97,7 +97,7 @@ export default Vue.extend({
 .main-title-style{
     margin: 0px;
     padding: 10px 0px;
-    
+
 }
 .opacity {
   width: 100%;
