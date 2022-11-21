@@ -165,7 +165,6 @@ export default Vue.extend({
         }).catch((error) => {
           console.log(`Erro: ${error}`)
         }).finally(() => {
-          console.log(this.postOur)
         })
     },
     getTags () {
