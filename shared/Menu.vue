@@ -7,7 +7,7 @@
     </h1>
     <div class="user">
       <div v-if="user" class="user-info">
-        <NuxtLink to="/admin">
+        <NuxtLink v-if="user.email === 'kimochism@gmail.com' " to="/admin">
           <button>Admin</button>
         </NuxtLink>
         <NuxtLink to="/post">
@@ -105,6 +105,10 @@ export default Vue.extend({
         padding: 12px;
       }
     }
+  }
+
+  .login {
+    padding: 27px;
   }
 
 </style>

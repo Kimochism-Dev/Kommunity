@@ -7,9 +7,7 @@
     <div v-else class="container">
       <div v-if="item" class="container-art">
         <!-- btn absolute -->
-        <NuxtLink to="/">
-          <a class="btn-primary"> Voltar </a>
-        </NuxtLink>
+        <a class="btn-primary" @click="$router.go(-1)"> Voltar </a>
         <!-- image contrast -->
         <div class="art-left">
           <img :src="item && item.image ? item.image : ''" alt="" width="500">
@@ -18,11 +16,7 @@
         <div class="art-right">
           <div class="art-info">
             <div class="art-options">
-              <div class="left-options">
-                <button>
-                  {{ item.likes }}
-                </button>
-              </div>
+              <div class="left-options" />
               <div
                 class="right-options"
                 :class="{ unliked: !isLikedByMe }"
@@ -47,11 +41,19 @@
               </div>
             </div>
             <div class="art-tags">
-              <span v-for="(tag, i) in item.tags" :key="i" class="tag">
-                #{{ tag }}</span>
+              <span v-for="(tag, i) in item.tags" :key="i" class="tag" @click="navigateTo(tag)">
+                #{{ tag }}
+              </span>
             </div>
             <br>
             <hr class="line-break">
+            <span v-if="item.likes > 0" class="likes-post">
+              <b style="color: #fc035a; font-family: Arial, Helvetica, sans-serif;">
+                {{ item.likes }}
+              </b>
+              likes
+            </span>
+            <hr v-if="item.likes > 0" class="line-break">
             <div class="container-comments">
               <div v-if="item.replies">
                 <CommentaryItem
@@ -91,10 +93,12 @@ export default Vue.extend({
       item: {},
       loadingScreen: true,
       isLikedByMe: false,
-      myId: ''
+      myId: '',
+      user: ''
     }
   },
   beforeMount () {
+    this.user = JSON.parse(localStorage.getItem('user'))
     this.getArt()
   },
   methods: {
@@ -111,6 +115,9 @@ export default Vue.extend({
         .finally(() => {
           this.loadingScreen = false
         })
+    },
+    navigateTo (tag) {
+      this.$router.push(`/feed?tags=${tag}`)
     },
     checkIsLikedByMe () {
       this.myId = JSON.parse(localStorage.getItem('user'))._id
@@ -196,6 +203,18 @@ a {
   }
 }
 
+.likes-post {
+  opacity: 0.8;
+  font-weight: 500;
+  letter-spacing: 1px;
+  align-items: center;
+  display: flex;
+  b {
+    padding-right: 5px;
+    font-size: 14px;
+  }
+}
+
 .icon-owner {
   width: 60px;
   height: 60px;
@@ -260,6 +279,7 @@ a {
   padding: 8px 24px;
   margin: 34px;
   z-index: 1;
+  cursor: pointer;
 }
 
 /* Replies */

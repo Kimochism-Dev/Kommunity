@@ -2,9 +2,7 @@
   <div class="container">
     <Menu />
     <div class="send-back">
-      <NuxtLink to="/">
-        <span>Voltar</span>
-      </NuxtLink>
+      <span @click="$router.go(-1)">Voltar</span>
       <CreatedDialog :resp-post="respPost" />
     </div>
     <div class="sub-container">
@@ -186,7 +184,7 @@ export default Vue.extend({
   width: 95vw;
   margin: 0 auto;
   display: flex;
-  a {
+  span {
     margin: 20px 0;
     margin-top: 0;
     padding: 8px 24px;
@@ -194,9 +192,7 @@ export default Vue.extend({
     background-color: white;
     border: 5px solid black;
     box-shadow: black 5px 5px;
-    span{
-      font-weight: 600;
-    }
+    font-weight: 600;
   }
 }
 

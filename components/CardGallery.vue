@@ -2,7 +2,7 @@
   <div class="card-container" data-aos="fade-up" data-offset="500">
     <img :src="item?.image">
     <div class="card-opacity" @click="navigateTo(item._id)">
-      <div class="top">
+      <!-- <div class="top">
         <button class="btn-primary">
           Salvar
         </button>
@@ -14,7 +14,7 @@
         <button class="btn-primary">
           Options
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -55,6 +55,7 @@ export default Vue.extend({
   img {
     display: block;
     max-width: 100%;
+    height: 100%;
   }
   &:hover .card-opacity {
     display: flex;
@@ -63,7 +64,7 @@ export default Vue.extend({
 }
 
 .card-opacity {
-  background-color: #0000008f;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0,0,0,700) 15%, rgba(255,255,255,0) 100%);
   right: 0;
   bottom: 0;
   position: absolute;

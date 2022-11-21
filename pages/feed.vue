@@ -18,7 +18,13 @@ export default Vue.extend({
   components: { Menu, SearchButtons, TagsContainer },
   data () {
     return {
-      name: 'index'
+      name: 'index',
+      rota: this.$router
+    }
+  },
+  watch: {
+    'rota' () {
+      window.scrollTo({ top: 0 })
     }
   },
   mounted () {
@@ -28,3 +34,9 @@ export default Vue.extend({
   }
 })
 </script>
+<style scoped>
+html,
+body {
+  overflow-x: hidden;
+}
+</style>
