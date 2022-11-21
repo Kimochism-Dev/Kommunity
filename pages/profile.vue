@@ -92,7 +92,6 @@ export default Vue.extend({
   display: flex;
 }
 .front-profile {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   border-bottom: 5px solid black;
   background-color: black;
   background-size: cover;
