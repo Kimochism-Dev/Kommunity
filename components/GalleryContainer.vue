@@ -59,7 +59,7 @@ export default Vue.extend({
     },
     infiniteScroll ($state) {
       if (this.$route.query.tags) {
-        $state.loaded()
+        $state.complete()
         return
       }
       setTimeout(() => {
