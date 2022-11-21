@@ -160,7 +160,10 @@ export default Vue.extend({
         this.post.date = `${this.date}:${this.hour}:00`
       }
 
+      this.post.tags = this.post.tags.split(',')
+
       const post = await this.$axios.post('/posts', this.post)
+
       await this.$axios({
         method: 'post',
         url: `/posts/${post.data._id}/image`,
