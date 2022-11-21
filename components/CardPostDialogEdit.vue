@@ -58,6 +58,8 @@
           </select>
         </div>
         <div class="post-dialog-actions">
+          <input type="button" value="vai se fuder caralho" @click="separateTags()">
+
           <button @click="closeDialog()">
             Cancelar
           </button>
@@ -101,10 +103,14 @@ export default Vue.extend({
       const TOAGLE_OFF = 'toagle-disabled'
       toagle.classList.contains(TOAGLE_OFF) ? toagle.classList.remove(TOAGLE_OFF) : toagle.classList.add(TOAGLE_OFF)
     },
-    catchTags () {
-      console.log('Separar tags e botar no array')
+    separateTags () {
+      let tagsArr = [this.postEdited.tags]
+      tagsArr = tagsArr[0].split(',')
+      tagsArr = tagsArr.map(function (a) { return a.trim() })
+      this.postEdited.tags = tagsArr
     },
     async updatePost () {
+      this.separateTags()
       await this.$axios({
         method: 'put',
         url: `/posts/${this.post._id}`,
