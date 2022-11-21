@@ -7,39 +7,39 @@
       <label for="">Nome</label>
       <input
         v-model="user.name"
-        type="password"
+        type="text"
         placeholder="John Doe"
         required
       >
       <label for="">Nome de usuário</label>
       <input
-        v-model="user.name"
-        type="password"
+        v-model="user.username"
+        type="text"
         placeholder="@johndoe"
         required
       >
       <label for="">Email</label>
       <input
-        v-model="user.name"
+        v-model="user.email"
         type="email"
         placeholder="johndoe@kommunity.com"
         required
       >
       <label for="">Senha</label>
       <input
-        v-model="user.name"
+        v-model="user.password"
         type="password"
         placeholder="Senha"
         required
       >
       <label for="">Repetir Senha</label>
       <input
-        v-model="user.name"
+        v-model="user.confirmPassword"
         type="password"
         placeholder="Senha"
         required
       >
-      <button @click="handleLogin">
+      <button @click="handleRegister">
         Cadastrar
       </button>
       <span>
@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -70,7 +70,32 @@ export default Vue.extend({
         name: '',
         nickname: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
+      }
+    }
+  },
+  methods: {
+    async handleRegister () {
+      if (Object.values(this.user).includes('')) {
+        alert('Preencha todos os campos')
+        return
+      }
+
+      if (this.user.password !== this.user.confirmPassword) {
+        alert('Senhas não conferem')
+        return
+      }
+
+      if (this.user.password.length < 6 || this.user.confirmPassword.length < 6) {
+        alert('Senhas precisam ter 6 ou mais caracteres')
+        return
+      }
+
+      const response = await this.$axios.post('/users/signup', this.user)
+
+      if (response.data) {
+        this.$router.push('/login')
       }
     }
   }
