@@ -52,17 +52,15 @@ export default Vue.extend({
         return
       }
 
-      const response = await this.$axios.post('/users/signin', {
+      await this.$axios.post('/users/signin', {
         email: this.email,
         password: this.password
-      })
-
-      if (response.data) {
+      }).then((response) => {
         const { idToken } = response.data
         localStorage.setItem('idToken', idToken)
         localStorage.setItem('user', JSON.stringify(response.data.user))
         this.$router.push('/')
-      }
+      }).catch(error => console.error(error))
     }
   }
 })
