@@ -58,6 +58,10 @@ export default Vue.extend({
       return array
     },
     infiniteScroll ($state) {
+      if (this.$route.query.tags) {
+        $state.loaded()
+        return
+      }
       setTimeout(() => {
         this.skip = this.$store.getters['feed/posts'].length || 0
         this.$axios.get(this.url)
