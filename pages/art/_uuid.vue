@@ -18,6 +18,7 @@
             <div class="art-options">
               <div class="left-options" />
               <div
+                v-if="user"
                 class="right-options"
                 :class="{ unliked: !isLikedByMe }"
                 @click="like()"
@@ -28,7 +29,7 @@
             <h1 class="art-title">
               {{ item?.title }}
             </h1>
-            <p>
+            <p class="art-description">
               {{ item?.description }}
             </p>
             <hr class="line-break">
@@ -190,6 +191,12 @@ a {
   display: flex;
 }
 
+.art-title{
+  text-transform: capitalize;
+}
+.art-description {
+  text-transform: capitalize;
+}
 .art-tags {
   padding-top: 15px;
   flex-wrap: wrap;
