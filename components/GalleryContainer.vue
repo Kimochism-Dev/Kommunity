@@ -59,14 +59,14 @@ export default Vue.extend({
     },
     infiniteScroll ($state) {
       setTimeout(() => {
-        this.skip++
+        this.skip = this.$store.getters['feed/posts'].length || 0
         this.$axios.get(this.url)
           .then((response) => {
             if (response.data.length > 1) {
               const currentItems = this.$store.getters['feed/posts']
               const newItems = [...currentItems, ...response.data]
 
-              this.$store.commit('feed/SET_POSTS', new Set(newItems))
+              this.$store.commit('feed/SET_POSTS', newItems)
               $state.loaded()
             } else {
               $state.complete()
