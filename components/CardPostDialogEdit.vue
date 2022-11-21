@@ -13,6 +13,9 @@
           </button>
         </div>
         <h1>Editar post</h1>
+        <span v-if="!post.isPublished">
+          <b style="color: red;">Este post está programado para ser publicado.</b>
+        </span>
         <div class="toaggle-visible">
           <span>
             <b>Tornar meu post visivel para todos</b>
@@ -43,7 +46,7 @@
           type="text"
           placeholder="Tags"
         >
-        <div v-if="!postEdited.isPosted" class="already-post">
+        <!-- <div v-if="!postEdited.isPosted" class="already-post">
           <label for="">Data de publicação</label>
           <input
             type="date"
@@ -56,9 +59,8 @@
             <option>Tarde - 16:00</option>
             <option>Noite - 22:00</option>
           </select>
-        </div>
+        </div> -->
         <div class="post-dialog-actions">
-          <input type="button" value="" @click="separateTags()">
           <button @click="closeDialog()">
             Cancelar
           </button>
