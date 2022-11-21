@@ -34,7 +34,7 @@
         <div class="post-dialog-right">
           <div v-if="post.isPurchasable || post.isBuyed" class="box-helper">
             <h2>Parabéns!</h2>
-            <h3>O seu post atingiu a quantidade de 100 likes!<br> E agora está elegível para a venda</h3>
+            <h3>O seu post atingiu a quantidade de {{ post.likes }} likes!<br> E agora está elegível para a venda</h3>
             <p>
               Olá <b>{{ user.name }}</b>, a equipe da kimochism agradece pelo seu empenho e a participação em nossa comunidade!
               <br>

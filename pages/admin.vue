@@ -230,7 +230,7 @@ export default Vue.extend({
       const url =
         this.countUserReports == 'todos'
           ? '/reports/count'
-          : `reports/count?email${this.countUserReports}`
+          : `reports/count?email=${this.countUserReports}`
       const { data } = await this.$axios.get(url)
       const ws = utils.aoa_to_sheet(data)
       const wb = utils.book_new()
