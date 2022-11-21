@@ -58,8 +58,6 @@
           </select>
         </div>
         <div class="post-dialog-actions">
-          <input type="button" value="vai se fuder caralho" @click="separateTags()">
-
           <button @click="closeDialog()">
             Cancelar
           </button>
