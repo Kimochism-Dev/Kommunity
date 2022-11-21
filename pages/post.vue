@@ -158,7 +158,7 @@ export default Vue.extend({
       const tagsArr = tags.split(',')
 
       for (let i = 0; i < tagsArr.length; i++) {
-        if (tagsArr[i] == '') {
+        if (tagsArr[i] === '') {
           tagsArr.splice(i, 1)
         }
       }

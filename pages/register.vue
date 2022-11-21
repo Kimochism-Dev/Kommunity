@@ -13,7 +13,7 @@
       >
       <label for="">Nome de usuário</label>
       <input
-        v-model="user.username"
+        v-model="user.nickname"
         type="text"
         placeholder="@johndoe"
         required
