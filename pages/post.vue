@@ -42,7 +42,6 @@
             type="text"
             placeholder="Titulo"
             required
-            oninvalid="this.setCustomValidity('Witinnovation')"
             onvalid="this.setCustomValidity('')"
           >
           <div class="post-user">
@@ -67,7 +66,12 @@
             placeholder="Escreva um pouco sobre o seu post"
             required
           >
-          <input v-model="post.tags" type="text" placeholder="TagExample, TagExample2, TagExample3" required>
+          <input
+            v-model="post.tags"
+            type="text"
+            placeholder="TagExample, TagExample2, TagExample3"
+            required
+          >
           <div class="form-date">
             <div>
               <input
@@ -147,18 +151,30 @@ export default Vue.extend({
       this.file = URL.createObjectURL(e.target.files[0])
       this.fileToSend = e.target.files[0]
     },
+    separateTags () {
+      let tags = this.post.tags
+      tags = tags.trim()
+      tags = tags.replace(/\s/g, '')
+      const tagsArr = tags.split(',')
+
+      for (let i = 0; i < tagsArr.length; i++) {
+        if (tagsArr[i] == '') {
+          tagsArr.splice(i, 1)
+        }
+      }
+      this.post.tags = tagsArr
+    },
     changeDatePost (e) {
       this.postNow = e.target.id
     },
     async createPost () {
+      this.separateTags()
       const formData = new FormData(this.$refs.post_form)
       formData.append('image', this.fileToSend)
 
       if (this.postNow === 'later') {
         this.post.date = `${this.date}:${this.hour}:00`
       }
-
-      this.post.tags = this.post.tags.split(',')
 
       const post = await this.$axios.post('/posts', this.post)
 
