@@ -38,9 +38,7 @@
                 <div class="icon-owner" :style="{ backgroundImage: 'url('+ item.owner.picture +')' }" />
               </div>
               <div class="column-right">
-                <NuxtLink to="/profile">
-                  <h3>{{ item.owner?.name }}</h3>
-                </NuxtLink>
+                <h3>{{ item.owner?.name }}</h3>
               </div>
             </div>
             <div class="art-tags">

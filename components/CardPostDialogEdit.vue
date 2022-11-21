@@ -58,6 +58,7 @@
           </select>
         </div>
         <div class="post-dialog-actions">
+          <input type="button" value="" @click="separateTags()">
           <button @click="closeDialog()">
             Cancelar
           </button>
@@ -102,8 +103,9 @@ export default Vue.extend({
       toagle.classList.contains(TOAGLE_OFF) ? toagle.classList.remove(TOAGLE_OFF) : toagle.classList.add(TOAGLE_OFF)
     },
     separateTags () {
-      let tagsArr = [this.postEdited.tags]
-      tagsArr = tagsArr[0].split(',')
+      let tagsArr = this.postEdited.tags
+      tagsArr = tagsArr.toString()
+      tagsArr = tagsArr.split(',')
       tagsArr = tagsArr.map(function (a) { return a.trim() })
       this.postEdited.tags = tagsArr
     },
@@ -120,7 +122,7 @@ export default Vue.extend({
         }
       }).finally(() => {
         this.closeDialog()
-        // this.$router.go(0)
+        this.$router.go(0)
       })
     }
   }

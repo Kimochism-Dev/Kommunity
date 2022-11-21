@@ -31,38 +31,48 @@
           <h1>Relatorios & informações</h1>
           <div class="wrapper-bottom">
             <div class="data-reports-box">
-              <h3>Desempenho geral de posts</h3>
-              <select id="" name="">
-                <option value="" selected disabled hidden>Escolha aqui</option>
-                <option v-for="(tag, i) in tags" :key="i" :value="tag">
-                  {{ tag }}
-                </option>
-              </select>
-              <button @click="generateGeneralReports()">Gerar relatório</button>
-            </div>
-            <div class="data-reports-box">
               <h3>Desempenho de posts por usuários</h3>
               <select id="user-reports" v-model="userReports" name="">
-                <option value="" selected disabled hidden>Escolha aqui</option>
+                <option value="" selected disabled hidden>
+                  Escolha aqui
+                </option>
                 <option v-for="(email, i) in emails" :key="i" :value="email">
                   {{ email }}
                 </option>
               </select>
-              <button @click="generateUserReports()">Gerar relatório</button>
+              <button @click="generateUserReports()">
+                Gerar relatório
+              </button>
             </div>
             <div class="data-reports-box">
-              <h3>Contagem de posts por tag</h3>
+              <h3>Contagem de posts por tag, por usuário</h3>
               <select id="count-user-reports" v-model="countUserReports">
-                <option value="" selected disabled hidden>Escolha aqui</option>
+                <option value="" selected disabled hidden>
+                  Escolha aqui
+                </option>
                 <option
-                  v-for="(email, i) in this.getUserReports()"
+                  v-for="(email, i) in getUserReports()"
                   :key="i"
                   :value="email"
                 >
                   {{ email }}
                 </option>
               </select>
-              <button @click="generatePostCountReports()">Gerar relatório</button>
+              <button @click="generatePostCountReports()">
+                Gerar relatório
+              </button>
+            </div>
+            <div class="data-reports-box">
+              <!-- <select id="" name="">
+                <option value="" selected disabled hidden>Escolha aqui</option>
+                <option v-for="(tag, i) in tags" :key="i" :value="tag">
+                  {{ tag }}
+                </option>
+              </select> -->
+              <h3>Desempenho geral de posts</h3>
+              <button @click="generateGeneralReports()">
+                Gerar relatório
+              </button>
             </div>
           </div>
           <button class="get-all-infos" @click="getAllReports()">
@@ -71,7 +81,9 @@
         </div>
         <div class="right-admin">
           <div class="box-list">
-            <h3 class="purchasable">Propostas em andamento</h3>
+            <h3 class="purchasable">
+              Propostas em andamento
+            </h3>
             <div v-if="postPurchasable.length">
               <item-post-admin
                 v-for="(postPur, i) in postPurchasable"
@@ -83,12 +95,14 @@
               <img
                 src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/genshin-impact-qiqi/sticker_10.png?8a65468de2ac98e87dc9b6ddbe8502a9&d=200x200"
                 alt=""
-              />
+              >
               <span>Nada por aqui...</span>
             </div>
           </div>
           <div class="box-list">
-            <h3 class="buyed">Propostas aceitas</h3>
+            <h3 class="buyed">
+              Propostas aceitas
+            </h3>
             <div v-if="postOur.length">
               <item-post-admin
                 v-for="(postPurchased, i) in postOur"
@@ -100,7 +114,7 @@
               <img
                 src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/genshin-impact-qiqi/sticker_10.png?8a65468de2ac98e87dc9b6ddbe8502a9&d=200x200"
                 alt=""
-              />
+              >
               <span>Nada por aqui...</span>
             </div>
           </div>
@@ -112,130 +126,131 @@
 </template>
 
 <script>
-import Vue from "vue";
-import ItemPostAdmin from "~/components/ItemPostAdmin.vue";
-import Menu from "~/shared/Menu.vue";
-import Footer from "~/shared/Footer.vue";
-import Preloader from "~/shared/Preloader.vue";
-import { utils, writeFileXLSX } from "xlsx";
+import Vue from 'vue'
+import { utils, writeFileXLSX } from 'xlsx'
+import ItemPostAdmin from '~/components/ItemPostAdmin.vue'
+import Menu from '~/shared/Menu.vue'
+import Footer from '~/shared/Footer.vue'
+import Preloader from '~/shared/Preloader.vue'
 
 export default Vue.extend({
-  name: "AdminView",
+  name: 'AdminView',
   components: { Menu, Footer, Preloader, ItemPostAdmin },
-  data() {
+  data () {
     return {
-      name: "admin",
-      infos: "",
+      name: 'admin',
+      infos: '',
       loadingScreen: true,
-      postPurchasable: "",
-      postOur: "",
-      tags: "",
+      postPurchasable: '',
+      postOur: '',
+      tags: '',
       emails: [],
-      userReports: "",
-      countUserReports: "",
-    };
+      userReports: '',
+      countUserReports: ''
+    }
   },
-  beforeMount() {
-    this.getInfo();
-    this.getTags();
-    this.getEmails();
-    this.getProposalWaiting();
-    this.getProposalAccepted();
+  beforeMount () {
+    this.getInfo()
+    this.getTags()
+    this.getEmails()
+    this.getProposalWaiting()
+    this.getProposalAccepted()
   },
   methods: {
-    getInfo() {
+    getInfo () {
       this.$axios
-        .get("/reports/infos")
+        .get('/reports/infos')
         .then((response) => {
           // Por enquanto n tem limite
-          this.infos = response.data;
+          this.infos = response.data
         })
         .catch((error) => {
-          console.log(`Erro: ${error}`);
+          console.log(`Erro: ${error}`)
         })
         .finally(() => {
-          this.loadingScreen = false;
-        });
+          this.loadingScreen = false
+        })
     },
-    getProposalWaiting() {
+    getProposalWaiting () {
       this.$axios
-        .get("/posts/buy")
+        .get('/posts/buy')
         .then((response) => {
           // Por enquanto n tem limite
-          this.postPurchasable = response.data;
+          this.postPurchasable = response.data
         })
         .catch((error) => {
-          console.log(`Erro: ${error}`);
+          console.log(`Erro: ${error}`)
         })
-        .finally(() => {});
+        .finally(() => {})
     },
-    getProposalAccepted() {
+    getProposalAccepted () {
       this.$axios
-        .get("/posts/our")
+        .get('/posts/our')
         .then((response) => {
           // Por enquanto n tem limite
-          this.postOur = response.data;
+          this.postOur = response.data
         })
         .catch((error) => {
-          console.log(`Erro: ${error}`);
+          console.log(`Erro: ${error}`)
         })
-        .finally(() => {});
+        .finally(() => {})
     },
-    getTags() {
+    getTags () {
       this.$axios
-        .get("/posts/tags")
+        .get('/posts/tags')
         .then((response) => {
           // Por enquanto n tem limite
-          this.tags = response.data;
+          this.tags = response.data
         })
         .catch((error) => {
-          console.log(`Erro: ${error}`);
+          console.log(`Erro: ${error}`)
         })
-        .finally(() => {});
+        .finally(() => {})
     },
-    async getEmails() {
-      this.emails = (await this.$axios.get("/reports/emails")).data;
+    async getEmails () {
+      this.emails = (await this.$axios.get('/reports/emails')).data
     },
-    async generateUserReports() {
+    async generateUserReports () {
       const { data } = await this.$axios.get(
         `/reports/all?email=${this.userReports}`
-      );
-      const ws = utils.aoa_to_sheet(data);
-      const wb = utils.book_new();
-      utils.book_append_sheet(wb, ws, "Data");
-      writeFileXLSX(wb, `likesByTags_${this.userReports.split("@")[0]}.xlsx`);
+      )
+      const ws = utils.aoa_to_sheet(data)
+      const wb = utils.book_new()
+      utils.book_append_sheet(wb, ws, 'Data')
+      writeFileXLSX(wb, `likesByTags_${this.userReports.split('@')[0]}.xlsx`)
     },
-    async generateGeneralReports() {
-      const { data } = await this.$axios.get(`/reports/all`);
-      const ws = utils.aoa_to_sheet(data);
-      const wb = utils.book_new();
-      utils.book_append_sheet(wb, ws, "Data");
-      writeFileXLSX(wb, `likesByTags.xlsx`);
+    async generateGeneralReports () {
+      const { data } = await this.$axios.get('/reports/all')
+      const ws = utils.aoa_to_sheet(data)
+      const wb = utils.book_new()
+      utils.book_append_sheet(wb, ws, 'Data')
+      writeFileXLSX(wb, 'likesByTags.xlsx')
     },
-    async generatePostCountReports() {
+    async generatePostCountReports () {
       const url =
-        this.countUserReports == "todos"
-          ? "/reports/count"
-          : `reports/count?email${this.countUserReports}`;
-      const { data } = await this.$axios.get(url);
-      const ws = utils.aoa_to_sheet(data);
-      const wb = utils.book_new();
-      utils.book_append_sheet(wb, ws, "Data");
+        this.countUserReports == 'todos'
+          ? '/reports/count'
+          : `reports/count?email${this.countUserReports}`
+      const { data } = await this.$axios.get(url)
+      const ws = utils.aoa_to_sheet(data)
+      const wb = utils.book_new()
+      utils.book_append_sheet(wb, ws, 'Data')
       const name =
-        this.countUserReports == "todos"
-          ? `postsByTag.xlsx`
-          : `postsByTag_${this.countUserReports.split("@")[0]}.xlsx`;
-      writeFileXLSX(wb, name);
+        this.countUserReports == 'todos'
+          ? 'postsByTag.xlsx'
+          : `postsByTag_${this.countUserReports.split('@')[0]}.xlsx`
+      writeFileXLSX(wb, name)
     },
-    async getAllReports() {
-      await this.generateUserReports();
-      await this.generateGeneralReports();
+    async getAllReports () {
+      await this.generateUserReports()
+      await this.generateGeneralReports()
+      await this.generatePostCountReports()
     },
-    getUserReports() {
-      return ["todos", ...this.emails];
-    },
-  },
-});
+    getUserReports () {
+      return ['todos', ...this.emails]
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -312,7 +327,7 @@ h1 {
   padding: 10px 48px;
   /* background-color: plum; */
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   display: flex;
 }
 
