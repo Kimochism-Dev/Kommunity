@@ -152,16 +152,9 @@ export default Vue.extend({
       this.fileToSend = e.target.files[0]
     },
     separateTags () {
-      let tags = this.post.tags
-      tags = tags.trim()
-      tags = tags.replace(/\s/g, '')
-      const tagsArr = tags.split(',')
-
-      for (let i = 0; i < tagsArr.length; i++) {
-        if (tagsArr[i] === '') {
-          tagsArr.splice(i, 1)
-        }
-      }
+      let tagsArr = [this.post.tags]
+      tagsArr = tagsArr[0].split(',')
+      tagsArr = tagsArr.map(function (a) { return a.trim() })
       this.post.tags = tagsArr
     },
     changeDatePost (e) {
