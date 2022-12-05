@@ -115,7 +115,6 @@ export default Vue.extend({
       }
     },
     async acceptProposal () {
-      console.log(this.post)
       await this.$axios({
         method: 'put',
         url: `/posts/${this.post._id}`,

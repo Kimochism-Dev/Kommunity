@@ -5,9 +5,7 @@
     <div v-else class="container-profile">
       <div class="front-profile" :style="{ backgroundImage: 'url('+ user.banner +')' }">
         <div class="edit-profile">
-          <button>
-            <img src="https://cdn-icons-png.flaticon.com/512/61/61456.png" alt="">
-          </button>
+          <ProfileDialogUpdate :user="user" />
         </div>
         <div class="icon-container-profile">
           <div class="icon-profile" :style="{ backgroundImage: 'url('+ user.picture +')' }" />
@@ -56,10 +54,11 @@ import Menu from '~/shared/Menu.vue'
 import Footer from '~/shared/Footer.vue'
 import Preloader from '~/shared/Preloader.vue'
 import CardPost from '~/components/CardPost.vue'
+import ProfileDialogUpdate from '~/components/ProfileDialogUpdate.vue'
 
 export default Vue.extend({
   name: 'ArtPage',
-  components: { Footer, Menu, Preloader, CardPost },
+  components: { Footer, Menu, Preloader, CardPost, ProfileDialogUpdate },
   data () {
     return {
       item: {},
@@ -95,7 +94,7 @@ export default Vue.extend({
   border-bottom: 5px solid black;
   background-color: black;
   background-size: cover;
-  background-position: center;
+  background-position: top;
   height: 300px;
   padding-left: 15vw;
   align-items: flex-end;
