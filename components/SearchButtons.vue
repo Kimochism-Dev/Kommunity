@@ -1,10 +1,8 @@
 <template>
   <div class="container-buttons">
-    <NuxtLink to="/feed">
-      <button>
-        Pra você
-      </button>
-    </NuxtLink>
+    <button @click="reloadPage()">
+      Pra você
+    </button>
     <NuxtLink to="/feed">
       <button @click="$store.commit('feed/SET_SHOW_TAGS', !$store.getters['feed/showTags'])">
         Descobrir
@@ -20,6 +18,12 @@ export default Vue.extend({
   name: 'SearchButtons',
   data () {
     return {
+    }
+  },
+  methods: {
+    reloadPage () {
+      const current = window.location.href
+      window.location.href = current
     }
   }
 })

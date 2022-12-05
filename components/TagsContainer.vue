@@ -61,7 +61,7 @@ export default Vue.extend({
       const response = await this.$axios.get(url)
 
       if (response.data) {
-        this.$store.commit('feed/SET_POSTS', response.data)
+        this.$store.commit('feed/SET_COLUMNS_TAGS', response.data)
       }
     }
   }

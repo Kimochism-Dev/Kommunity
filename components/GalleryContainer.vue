@@ -6,13 +6,13 @@
         :key="i"
         :item="item"
       /> -->
-      <ColumnFeedPost :column-posts="columns[0]" />
-      <ColumnFeedPost :column-posts="columns[1]" />
-      <ColumnFeedPost :column-posts="columns[2]" />
-      <ColumnFeedPost :column-posts="columns[3]" />
-      <ColumnFeedPost :column-posts="columns[4]" />
-      <ColumnFeedPost :column-posts="columns[5]" />
-      <ColumnFeedPost :column-posts="columns[6]" />
+      <ColumnFeedPost :column-posts="$store.getters['feed/columns'][0]" />
+      <ColumnFeedPost :column-posts="$store.getters['feed/columns'][1]" />
+      <ColumnFeedPost :column-posts="$store.getters['feed/columns'][2]" />
+      <ColumnFeedPost :column-posts="$store.getters['feed/columns'][3]" />
+      <ColumnFeedPost :column-posts="$store.getters['feed/columns'][4]" />
+      <ColumnFeedPost :column-posts="$store.getters['feed/columns'][5]" />
+      <ColumnFeedPost :column-posts="$store.getters['feed/columns'][6]" />
     </div>
     <InfiniteLoading spinner="spiral" @infinite="infiniteScroll" />
   </div>
@@ -26,16 +26,7 @@ export default Vue.extend({
   data () {
     return {
       loadingScreen: true,
-      skip: 0,
-      columns: [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
-      ]
+      skip: 0
     }
   },
   computed: {
@@ -51,19 +42,10 @@ export default Vue.extend({
       const query = this.$route.query
 
       const url = query?.tags ? `/posts?tags=${query?.tags}` : '/posts'
+
       this.$axios.get(url)
         .then((response) => {
-          this.$store.commit('feed/SET_POSTS', this.shuffle(response.data))
-          let isSeven = 0
-          for (let i = 0; i <= response.data.length; i++) {
-            if (response.data[i] !== undefined) {
-              this.columns[isSeven].push(response.data[i])
-              isSeven++
-              if (isSeven === 7) {
-                isSeven = 0
-              }
-            }
-          }
+          this.$store.commit('feed/SET_COLUMNS', this.shuffle(response.data))
         }).catch((error) => {
           console.error(`Error: ${error}`)
         }).finally(() => {
@@ -89,14 +71,12 @@ export default Vue.extend({
         return
       }
       setTimeout(() => {
-        this.skip = this.$store.getters['feed/posts'].length || 0
+        this.skip = this.$store.getters['feed/columns'].reduce((acc, curr) => (acc += curr.length), 0)
+
         this.$axios.get(this.url)
           .then((response) => {
             if (response.data.length > 1) {
-              const currentItems = this.$store.getters['feed/posts']
-              const newItems = [...currentItems, ...response.data]
-
-              this.$store.commit('feed/SET_POSTS', newItems)
+              this.$store.commit('feed/SET_COLUMNS', this.shuffle(response.data))
               $state.loaded()
             } else {
               $state.complete()
