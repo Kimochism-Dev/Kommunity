@@ -73,7 +73,7 @@ export default Vue.extend({
   },
   methods: {
     getPostsUser () {
-      this.$axios.get(`/posts?email=${this.user.email}`)
+      this.$axios.get(`/posts?email=${this.user.email}&limit=2000`)
         .then((response) => {
           this.posts = response.data
         }).catch((error) => {

@@ -1,11 +1,18 @@
 <template>
   <div>
     <div class="container-gallery">
-      <CardGallery
+      <!-- <CardGallery
         v-for="(item, i) in $store.getters['feed/posts']"
         :key="i"
         :item="item"
-      />
+      /> -->
+      <ColumnFeedPost :column-posts="columns[0]" />
+      <ColumnFeedPost :column-posts="columns[1]" />
+      <ColumnFeedPost :column-posts="columns[2]" />
+      <ColumnFeedPost :column-posts="columns[3]" />
+      <ColumnFeedPost :column-posts="columns[4]" />
+      <ColumnFeedPost :column-posts="columns[5]" />
+      <ColumnFeedPost :column-posts="columns[6]" />
     </div>
     <InfiniteLoading spinner="spiral" @infinite="infiniteScroll" />
   </div>
@@ -19,7 +26,16 @@ export default Vue.extend({
   data () {
     return {
       loadingScreen: true,
-      skip: 0
+      skip: 0,
+      columns: [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
     }
   },
   computed: {
@@ -38,6 +54,16 @@ export default Vue.extend({
       this.$axios.get(url)
         .then((response) => {
           this.$store.commit('feed/SET_POSTS', this.shuffle(response.data))
+          let isSeven = 0
+          for (let i = 0; i <= response.data.length; i++) {
+            if (response.data[i] !== undefined) {
+              this.columns[isSeven].push(response.data[i])
+              isSeven++
+              if (isSeven === 7) {
+                isSeven = 0
+              }
+            }
+          }
         }).catch((error) => {
           console.error(`Error: ${error}`)
         }).finally(() => {
